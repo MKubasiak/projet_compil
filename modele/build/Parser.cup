@@ -1,0 +1,20 @@
+/*
+ * analyseur syntaxique  du langage exemple-expr:
+ * expression arithmetique
+ * (voir supports de cours)
+ *
+ * auteur : azim.roussanaly@univ-lorraine.fr
+ * (c) 2013
+ */ 
+package fr.ul.miage.exemple.generated;
+
+/* la grammaire */
+
+terminal CRO2, SLASH, POINT, PLUS;
+
+start with l
+l ::=x
+	;
+	
+timestamp ::=
+		;
