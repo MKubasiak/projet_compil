@@ -12,14 +12,55 @@ package fr.ul.miage.exemple.generated;
 
 
 
-non terminal while, for, declaration, commentaire, doc, if, else, affect, retourne, afficher, lire, function, param;
-terminal TQ, PR, PD, PG, ACD, ACG, ET, OU, PLUS, FOIS, MOINS, DIV, NOM, AFFECT, SI, SINON, TYPE, FONCTION, DP, RT, LIR, STRING;
-/* TQ : Tant que ; PR : Pour ; PD : Parenthèse droite ; PG : Parenthèse gauche ; ACD : Accolade gauche ; ACG : Accolade droite ; DP : Double point ; RT : Retourne */
+non terminal fichier, while, for, declaration, commentaire, doc, if, else, affect, retourne, afficher, lire, function, param, expr;
+terminal TQ, PR, PD, PG, ACD, ACG, ET, OU, PLUS, FOIS, MOINS, DIV, NOM, AFFECTE, SI, SINON, TYPE, FONCTION, DP, RT, LIR, STRING, FIN, COM, FCOM, AFFICH;
+/* 	TQ : Tant que ; 
+	PR : Pour ; 
+	PD : Parenthï¿½se droite ; 
+	PG : Parenthï¿½se gauche ; 
+	ACD : Accolade gauche ; 
+	ACG : Accolade droite ; 
+	DP : Double point ; 
+	RT : Retourne */
 
 
-start with l;
-l ::=x
+start with fichier;
+fichier ::= while FIN fichier|
+			for FIN|
+			declaration FIN fichier|
+			commentaire FIN fichier|
+			doc FIN fichier|
+			if FIN fichier|
+			else FIN fichier|
+			affect FIN fichier|
+			retourne FIN fichier|
+			afficher FIN fichier|
+			lire FIN fichier|
+			function FIN fichier
 	;
 	
-timestamp ::=
-		;
+param ::= 	PG TYPE NOM PD |
+			PG TYPE NOM TYPE NOM PD;
+			
+while ::= TQ param ACG STRING ACD;
+
+for ::= PR param ACG STRING ACD;
+
+declaration ::= TYPE NOM |
+				TYPE NOM AFFECTE STRING;
+
+commentaire ::= COM STRING FCOM;
+
+if ::= SI PG STRING PD ACG STRING ACD;
+
+else ::= SINON PG STRING PD ACG STRING ACD;
+
+affect ::= NOM AFFECTE STRING;
+
+retourne ::= RT STRING;
+
+afficher ::= AFFICH PG STRING PD;
+
+lire ::= LIR PG PD;
+
+function ::= TYPE FONCTION param ACG STRING ACD;

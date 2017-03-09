@@ -35,7 +35,10 @@ LIR		=	"lire"
 
 /* regles */
 
-"<-"		{ return new Symbol(sym.AFFECT);}
+"/*"		{ return new Symbol(sym.COM);}
+"*/"		{ return new Symbol(sym.FCOM);}
+"<-"		{ return new Symbol(sym.AFFECTE);}
+"affiche"	{ return new Symbol(sym.AFFICH);}
 "+"         { return new Symbol(sym.PLUS);}
 "*"         { return new Symbol(sym.FOIS);}
 "("         { return new Symbol(sym.PG);}
@@ -46,7 +49,7 @@ LIR		=	"lire"
 "|"			{ return new Symbol(sym.OU);}
 "{"			{ return new Symbol(sym.ACG);}
 "}"			{ return new Symbol(sym.ACD);}
-"::"		{ return new Symbol(sym.DP);}
+":"		{ return new Symbol(sym.DP);}
 {SI} 		{ return new Symbol(sym.SI);}
 {SINON}		{ return new Symbol(sym.SINON);}
 {NOM}		{ return new Symbol(sym.NOM);}
