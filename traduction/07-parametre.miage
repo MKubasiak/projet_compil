@@ -1,0 +1,15 @@
+/*
+ * une fonction (appel)
+ */
+
+int i <- 0;
+int j <- 0;
+
+fonction int f(int a, int b){
+	int x, y, z;
+	retourne 0;
+ }
+
+fonction void main(){
+	i <- f(i,j); /*tester ceci*/
+}

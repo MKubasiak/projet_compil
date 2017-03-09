@@ -1,0 +1,14 @@
+/*
+ * Une expression avec un appel
+ */
+
+int i <- 1;
+int j <- 2;
+
+fonction int f(int a){
+	retourne 3;
+ }
+
+fonction void main(){
+	i <- j-(3+f(i+j));/*tester ceci*/
+}

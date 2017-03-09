@@ -1,0 +1,15 @@
+/*
+ * recursivité
+ */
+int x ;
+
+fonction int f(int n){
+	si (n>0){
+		retourne 0;
+	}
+	retourne (n+f(n-1));
+}
+
+fonction void main(){
+	x <- f(5);
+}

@@ -1,0 +1,13 @@
+/*
+ * conditionnelle
+ */
+
+int i <- 3; int j;
+fonction void main(){
+	si (i < 2){
+		j <- 0;
+	}sinon{
+		j <- 1;
+	}
+ }
+
