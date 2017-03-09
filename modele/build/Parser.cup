@@ -10,9 +10,11 @@ package fr.ul.miage.exemple.generated;
 
 /* la grammaire */
 
-terminal CRO2, SLASH, POINT, PLUS;
 
-start with l
+non terminal l;
+terminal CRO2, SLASH, POINT, PLUS, x, timestamp;
+
+start with l;
 l ::=x
 	;
 	

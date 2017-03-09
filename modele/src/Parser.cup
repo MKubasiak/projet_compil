@@ -11,8 +11,11 @@ package fr.ul.miage.exemple.generated;
 /* la grammaire */
 
 
-non terminal l;
-terminal CRO2, SLASH, POINT, PLUS, x, timestamp;
+
+non terminal while, for, declaration, commentaire, doc, if, else, affect, retourne, afficher, lire, function, param;
+terminal TQ, PR, PD, PG, ACD, ACG, ET, OU, PLUS, FOIS, MOINS, DIV, NOM, AFFECT, SI, SINON, TYPE, FONCTION, DP, RT, LIR, STRING;
+/* TQ : Tant que ; PR : Parenthèse droite ; PD : Parenthèse gauche ; ACD : Accolade gauche ; ACG : Accolade droite ; DP : Double point ; RT : Retourne */
+
 
 start with l;
 l ::=x

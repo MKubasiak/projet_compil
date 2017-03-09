@@ -31,6 +31,8 @@ FIN     =   \r|\n|\r\n
 "*"         { return new Symbol(sym.MUL);}
 "("         { return new Symbol(sym.PO);}
 ")"         { return new Symbol(sym.PF);}
+"/"			{ return new Symbol(sym.DIV);}
+"-"			{ return new Symbol(sym.SOUS);}
 {NUM}       { return new Symbol(sym.NUM);}
 {SEP}       { ; }
 {FIN}		{ return new Symbol(sym.EOF);}

@@ -8,21 +8,23 @@ package fr.ul.miage.exemple.generated;
 /** CUP generated interface containing symbol constants. */
 public interface sym {
   /* terminals */
-  public static final int NUM = 6;
-  public static final int PF = 5;
-  public static final int PO = 4;
+  public static final int x = 6;
+  public static final int POINT = 4;
   public static final int error = 1;
-  public static final int MUL = 3;
-  public static final int ADD = 2;
+  public static final int PLUS = 5;
+  public static final int SLASH = 3;
+  public static final int timestamp = 7;
+  public static final int CRO2 = 2;
   public static final int EOF = 0;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "ADD",
-  "MUL",
-  "PO",
-  "PF",
-  "NUM"
+  "CRO2",
+  "SLASH",
+  "POINT",
+  "PLUS",
+  "x",
+  "timestamp"
   };
 }
 
