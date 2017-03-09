@@ -21,18 +21,41 @@ import java_cup.runtime.Symbol;
 SEP     =   [ \t]
 NUM     =   [0-9]+
 FIN     =   \r|\n|\r\n
-
+TQ 		=   "tantque"
+PR		=	"pour"
+RT		=	"retourne"
+NOM		=	[a-z]*
+TYPE	=	"int"
+SI		=	"si"
+SINON	=	"sinon"
+FONCTION=	"fonction"
+LIR		=	"lire"
 
 %%
 
 /* regles */
 
-"+"         { return new Symbol(sym.ADD);}
-"*"         { return new Symbol(sym.MUL);}
-"("         { return new Symbol(sym.PO);}
-")"         { return new Symbol(sym.PF);}
+"<-"		{ return new Symbol(sym.AFFECT);}
+"+"         { return new Symbol(sym.PLUS);}
+"*"         { return new Symbol(sym.FOIS);}
+"("         { return new Symbol(sym.PG);}
+")"         { return new Symbol(sym.PD);}
 "/"			{ return new Symbol(sym.DIV);}
-"-"			{ return new Symbol(sym.SOUS);}
+"-"			{ return new Symbol(sym.MOINS);}
+"&"			{ return new Symbol(sym.ET);}
+"|"			{ return new Symbol(sym.OU);}
+"{"			{ return new Symbol(sym.ACG);}
+"}"			{ return new Symbol(sym.ACD);}
+"::"		{ return new Symbol(sym.DP);}
+{SI} 		{ return new Symbol(sym.SI);}
+{SINON}		{ return new Symbol(sym.SINON);}
+{NOM}		{ return new Symbol(sym.NOM);}
+{TYPE}		{ return new Symbol(sym.TYPE);}
+{RT}		{ return new Symbol(sym.RT);}
+{LIR}		{ return new Symbol(sym.LIR);}
+{FONCTION}	{ return new Symbol(sym.FONCTION);}
+{TQ}		{ return new Symbol(sym.TQ);}
+{PR}		{ return new Symbol(sym.PR);}
 {NUM}       { return new Symbol(sym.NUM);}
 {SEP}       { ; }
 {FIN}		{ return new Symbol(sym.EOF);}
