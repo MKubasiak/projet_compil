@@ -41,7 +41,6 @@ STRING 	= 	[a-z]* | \* | [A-Z]*
 "<-"		{ return new Symbol(sym.AFFECTE);}
 "affiche"	{ return new Symbol(sym.AFFICH);}
 "+"         { return new Symbol(sym.PLUS);}
-"*"         { return new Symbol(sym.FOIS);}
 "("         { return new Symbol(sym.PG);}
 ")"         { return new Symbol(sym.PD);}
 "/"			{ return new Symbol(sym.DIV);}

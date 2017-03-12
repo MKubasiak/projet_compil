@@ -25,18 +25,18 @@ terminal TQ, PR,SEP, PD,NUM, PG, ACD, ACG, ET, OU, PLUS, FOIS, MOINS, DIV, NOM, 
 
 
 start with fichier;
-fichier ::= while FIN fichier|
-			for FIN|
-			declaration FIN fichier|
+fichier ::= while fichier|
+			for fichier|
+			declaration fichier|
 			commentaire|
-			doc FIN fichier|
-			if FIN fichier|
-			else FIN fichier|
-			affect FIN fichier|
-			retourne FIN fichier|
-			afficher FIN fichier|
-			lire FIN fichier|
-			function FIN fichier |
+			doc fichier|
+			if fichier|
+			else fichier|
+			affect fichier|
+			retourne fichier|
+			afficher fichier|
+			lire fichier|
+			function fichier |
 			FIN fichier |
 			STRING fichier |
 			SEP fichier |
