@@ -25,7 +25,7 @@ TQ 		=   "tantque"
 PR		=	"pour"
 RT		=	"retourne"
 NOM		=	[a-z]*
-TYPE	=	"int"
+TYPE	=	"int" | "void"
 SI		=	"si"
 SINON	=	"sinon"
 FONCTION=	"fonction"
@@ -41,7 +41,6 @@ STRING 	= 	[a-z]* | \* | [A-Z]*
 "<-"		{ return new Symbol(sym.AFFECTE);}
 "affiche"	{ return new Symbol(sym.AFFICH);}
 "+"         { return new Symbol(sym.PLUS);}
-{STRING}	{ return new Symbol(sym.STRING);}
 "*"         { return new Symbol(sym.FOIS);}
 "("         { return new Symbol(sym.PG);}
 ")"         { return new Symbol(sym.PD);}
@@ -54,7 +53,6 @@ STRING 	= 	[a-z]* | \* | [A-Z]*
 ":"		{ return new Symbol(sym.DP);}
 {SI} 		{ return new Symbol(sym.SI);}
 {SINON}		{ return new Symbol(sym.SINON);}
-{NOM}		{ return new Symbol(sym.NOM);}
 {TYPE}		{ return new Symbol(sym.TYPE);}
 {RT}		{ return new Symbol(sym.RT);}
 {LIR}		{ return new Symbol(sym.LIR);}
@@ -64,4 +62,5 @@ STRING 	= 	[a-z]* | \* | [A-Z]*
 {NUM}       { return new Symbol(sym.NUM);}
 {SEP}       { return new Symbol(sym.SEP); }
 {FIN}		{ return new Symbol(sym.FIN);}
-
+{STRING}	{ return new Symbol(sym.STRING);}
+{NOM}		{ return new Symbol(sym.NOM);}

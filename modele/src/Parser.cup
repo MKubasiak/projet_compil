@@ -44,7 +44,8 @@ fichier ::= while FIN fichier|
 	;
 	
 param ::= 	PG TYPE NOM PD |
-			PG TYPE NOM TYPE NOM PD;
+			PG TYPE NOM TYPE NOM PD |
+			PG PD;
 			
 while ::= TQ param ACG fichier ACD;
 
@@ -67,4 +68,4 @@ afficher ::= AFFICH PG STRING PD;
 
 lire ::= LIR PG PD;
 
-function ::= TYPE FONCTION param ACG STRING ACD;
+function ::= FONCTION SEP TYPE SEP STRING param ACG fichier ACD;
