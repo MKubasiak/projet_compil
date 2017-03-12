@@ -60,6 +60,6 @@ STRING 	= 	[a-z]+ | \* | [A-Z]+ | "'"
 {PR}		{ return new Symbol(sym.PR);}
 {NUM}       { return new Symbol(sym.NUM);}
 {SEP}       { return new Symbol(sym.SEP); }
-{FIN}		{ return new Symbol(sym.FIN);}
+{FIN}		{ return(;);}
 {STRING}	{ return new Symbol(sym.STRING);}
 {NOM}		{ return new Symbol(sym.NOM);}
