@@ -20,7 +20,7 @@ import java_cup.runtime.Symbol;
 /* macros */
 SEP     =   [ \t]
 NUM     =   [0-9]+
-FIN     =   \r|\n|\r\n
+FIN     =   \r|\n|\r\n\
 TQ 		=   "tantque"
 PR		=	"pour"
 RT		=	"retourne"
@@ -30,6 +30,7 @@ SI		=	"si"
 SINON	=	"sinon"
 FONCTION=	"fonction"
 LIR		=	"lire"
+STRING 	= 	[a-z]* | \* | [A-Z]*
 
 %%
 
@@ -40,6 +41,7 @@ LIR		=	"lire"
 "<-"		{ return new Symbol(sym.AFFECTE);}
 "affiche"	{ return new Symbol(sym.AFFICH);}
 "+"         { return new Symbol(sym.PLUS);}
+{STRING}	{ return new Symbol(sym.STRING);}
 "*"         { return new Symbol(sym.FOIS);}
 "("         { return new Symbol(sym.PG);}
 ")"         { return new Symbol(sym.PD);}
@@ -60,6 +62,6 @@ LIR		=	"lire"
 {TQ}		{ return new Symbol(sym.TQ);}
 {PR}		{ return new Symbol(sym.PR);}
 {NUM}       { return new Symbol(sym.NUM);}
-{SEP}       { ; }
-{FIN}		{ return new Symbol(sym.EOF);}
+{SEP}       { return new Symbol(sym.SEP); }
+{FIN}		{ return new Symbol(sym.FIN);}
 
