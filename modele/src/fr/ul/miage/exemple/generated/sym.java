@@ -35,6 +35,7 @@ public interface sym {
   public static final int PG = 7;
   public static final int FCOM = 28;
   public static final int PD = 5;
+  public static final int ENTREE = 30;
   public static final int TQ = 2;
   public static final int AFFECTE = 17;
   public static final int FIN = 26;
@@ -68,7 +69,8 @@ public interface sym {
   "FIN",
   "COM",
   "FCOM",
-  "AFFICH"
+  "AFFICH",
+  "ENTREE"
   };
 }
 

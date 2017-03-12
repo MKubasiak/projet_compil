@@ -21,16 +21,16 @@ import java_cup.runtime.Symbol;
 SEP     =   [ \t]
 NUM     =   [0-9]+
 FIN     =   \r|\n|\r\n\
-TQ 		=   "tantque"
-PR		=	"pour"
+TQ 		=   "while"
+PR		=	"for"
 RT		=	"retourne"
 NOM		=	[a-z]*
 TYPE	=	"int" | "void"
-SI		=	"si"
-SINON	=	"sinon"
+SI		=	"if"
+SINON	=	"else"
 FONCTION=	"fonction"
 LIR		=	"lire"
-STRING 	= 	[a-z]* | \* | [A-Z]*
+STRING 	= 	[a-z]+ | \* | [A-Z]+ | "'"
 
 %%
 
@@ -49,7 +49,7 @@ STRING 	= 	[a-z]* | \* | [A-Z]*
 "|"			{ return new Symbol(sym.OU);}
 "{"			{ return new Symbol(sym.ACG);}
 "}"			{ return new Symbol(sym.ACD);}
-":"		{ return new Symbol(sym.DP);}
+":"			{ return new Symbol(sym.DP);}
 {SI} 		{ return new Symbol(sym.SI);}
 {SINON}		{ return new Symbol(sym.SINON);}
 {TYPE}		{ return new Symbol(sym.TYPE);}
