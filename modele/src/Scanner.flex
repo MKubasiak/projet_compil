@@ -23,7 +23,7 @@ FIN     =   \r|\n|\r\n\
 TQ 		=   "while"
 PR		=	"for"
 RT		=	"retourne"
-NOM		=	[a-z]*
+NOM		=	[a-z]+
 TYPE	=	"int" | "void"
 SI		=	"if"
 SINON	=	"else"
@@ -50,7 +50,7 @@ SEP		= [ \t]
 "|"			{ return new Symbol(sym.OU);}
 "{"			{ return new Symbol(sym.ACG);}
 "}"			{ return new Symbol(sym.ACD);}
-":"			{ return new Symbol(sym.DP);}
+"::"			{ return new Symbol(sym.DP);}
 ","			{ return new Symbol(sym.VIRGULE);}
 ";"			{;}
 {SI} 		{ return new Symbol(sym.SI);}

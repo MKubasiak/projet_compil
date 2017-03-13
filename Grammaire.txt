@@ -1,18 +1,11 @@
 /*
- * Test plus complet pour savoir si l'analyseur
- * syntaxique fonctionne
+ * boucle
  */
- 
- int i <- 0;
- int j; 
- 
- fonction  int f(int a, int b){
-	int x;
-	x <- (a**2)+b-5/3;
-	retourne x+2;
- }
- 
- fonction void main(){
- 	int j <- lire();
- 	afficher(f(i+1,j));
+
+int i , j;
+fonction void main(){
+	i <- 0; j <- 0;
+	tantque (i <3){
+		j <- j + i;
+	}
  }
