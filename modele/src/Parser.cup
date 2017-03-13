@@ -48,6 +48,7 @@ while ::= TQ param ACG fichier ACD;
 for ::= PR param ACG fichier ACD;
 
 declaration ::= TYPE STRING |
+				TYPE STRING VIRGULE STRING |
 				TYPE STRING AFFECTE STRING |
 				TYPE STRING AFFECTE NUM |
 				TYPE STRING AFFECTE methode;
