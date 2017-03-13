@@ -10,8 +10,8 @@ package fr.ul.miage.exemple.generated;
 
 
 
-non terminal fichier, while, for, declaration, commentaire, doc, if, else, affect, retourne, afficher, lire, function, param, expr;
-terminal TQ, PR, PD,NUM, PG, ACD, ACG, ET, OU, PLUS, FOIS, MOINS, DIV, NOM, AFFECTE, SI, SINON, TYPE, FONCTION, DP, RT, LIR, STRING, FIN, COM, FCOM, AFFICH, ENTREE;
+non terminal fichier, while, for, declaration, commentaire, doc, if, else, affect, retourne, afficher, lire, function, param, expr, expression, operation, methode;
+terminal TQ, PR, PD,NUM, PG, ACD, ACG, ET, OU, PLUS, FOIS, MOINS, DIV, NOM, AFFECTE, SI, SINON, TYPE, FONCTION, DP, RT, LIR, STRING, FIN, COM, FCOM, AFFICH, ENTREE, VIRGULE;
 /* 	TQ : Tant que ; 
 	PR : Pour ; 
 	PD : Parenth�se droite ; 
@@ -37,19 +37,20 @@ fichier ::= while fichier|
 			function fichier |
 			FIN fichier |
 			STRING fichier |
-			FIN
-	;
+			FIN;
 	
-param ::= 	PG TYPE NOM PD |
-			PG TYPE NOM TYPE NOM PD |
+param ::= 	PG TYPE STRING PD |
+			PG TYPE STRING VIRGULE TYPE STRING PD |
 			PG PD;
 			
 while ::= TQ param ACG fichier ACD;
 
 for ::= PR param ACG fichier ACD;
 
-declaration ::= TYPE NOM |
-				TYPE NOM AFFECTE STRING;
+declaration ::= TYPE STRING |
+				TYPE STRING AFFECTE STRING |
+				TYPE STRING AFFECTE NUM |
+				TYPE STRING AFFECTE methode;
 
 commentaire ::= COM fichier FCOM fichier;
 
@@ -57,12 +58,40 @@ if ::= SI PG STRING PD ACG fichier ACD;
 
 else ::= SINON PG STRING PD ACG fichier ACD;
 
-affect ::= NOM AFFECTE STRING;
+affect ::= STRING AFFECTE STRING |
+		   STRING AFFECTE expression |
+		   STRING AFFECTE methode;
 
-retourne ::= RT STRING;
+expression ::= PG STRING operation STRING PD expression |
+			   PG STRING operation NUM PD expression |
+			   PG NUM operation STRING PD expression |	
+			   PG NUM operation NUM PD expression |
+			   operation STRING expression |
+			   operation NUM expression |
+			   STRING operation STRING |
+			   STRING operation NUM |
+			   NUM operation STRING |
+			   NUM operation NUM |
+			   FIN;
 
-afficher ::= AFFICH PG STRING PD;
+operation ::= PLUS |
+			  FOIS |
+			  MOINS |
+			  DIV;
 
-lire ::= LIR PG PD;
+retourne ::= RT STRING |
+			 RT STRING operation STRING |
+			 RT STRING operation NUM |
+			 RT NUM operation STRING |
+			 RT NUM operation NUM;
+
+afficher ::= AFFICH PG STRING PD |
+			 AFFICH PG methode PD;
+
+methode ::= LIR |
+			STRING PG expression PD |
+			STRING PG expression VIRGULE expression PD |
+			STRING PG expression VIRGULE STRING PD |
+			STRING PG expression VIRGULE NUM PD;
 
 function ::= FONCTION TYPE STRING param ACG fichier ACD;
