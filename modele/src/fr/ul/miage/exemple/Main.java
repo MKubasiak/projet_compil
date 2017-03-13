@@ -26,7 +26,7 @@ public class Main {
 		try {
 			ParserCup parser = new ParserCup(new Yylex(new BufferedReader(new FileReader(new File(args[0])))));
 			parser.parse();
-			System.out.println("fin gros pd");
+			System.out.println("FIN");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
