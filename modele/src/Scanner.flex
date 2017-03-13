@@ -49,6 +49,7 @@ STRING 	= 	[a-z]+ | \* | [A-Z]+ | "'"
 "{"			{ return new Symbol(sym.ACG);}
 "}"			{ return new Symbol(sym.ACD);}
 ":"			{ return new Symbol(sym.DP);}
+" "			{;}
 {SI} 		{ return new Symbol(sym.SI);}
 {SINON}		{ return new Symbol(sym.SINON);}
 {TYPE}		{ return new Symbol(sym.TYPE);}
