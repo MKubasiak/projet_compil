@@ -7,7 +7,7 @@ int i, j <- 0;
 fonction int f(int a, int b){
 	int x;
 	
-	x<-(a*2)+b-5/3 /*erreur ; attendu */
+	x<-(a**2)+b-5/3 /*erreur ; attendu */
 	
 	retourne x+2;
  }

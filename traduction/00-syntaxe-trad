@@ -8,7 +8,7 @@
  
  fonction  int f(int a, int b){
 	int x;
-	x <- (a*2)+b-5/3;
+	x <- (a**2)+b-5/3;
 	retourne x+2;
  }
  
