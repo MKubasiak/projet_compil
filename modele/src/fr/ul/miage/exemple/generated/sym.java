@@ -17,6 +17,7 @@ public interface sym {
   public static final int ACG = 8;
   public static final int COM = 26;
   public static final int ACD = 7;
+  public static final int VIRGULE = 30;
   public static final int NOM = 15;
   public static final int DP = 21;
   public static final int MOINS = 13;
@@ -68,7 +69,8 @@ public interface sym {
   "COM",
   "FCOM",
   "AFFICH",
-  "ENTREE"
+  "ENTREE",
+  "VIRGULE"
   };
 }
 
