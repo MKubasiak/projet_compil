@@ -11,7 +11,7 @@ package fr.ul.miage.exemple.generated;
 
 
 non terminal fichier, while, for, declaration, commentaire, doc, if, else, affect, retourne, afficher, lire, function, param, expr;
-terminal TQ, PR,SEP, PD,NUM, PG, ACD, ACG, ET, OU, PLUS, FOIS, MOINS, DIV, NOM, AFFECTE, SI, SINON, TYPE, FONCTION, DP, RT, LIR, STRING, FIN, COM, FCOM, AFFICH, ENTREE;
+terminal TQ, PR, PD,NUM, PG, ACD, ACG, ET, OU, PLUS, FOIS, MOINS, DIV, NOM, AFFECTE, SI, SINON, TYPE, FONCTION, DP, RT, LIR, STRING, FIN, COM, FCOM, AFFICH, ENTREE;
 /* 	TQ : Tant que ; 
 	PR : Pour ; 
 	PD : Parenth�se droite ; 
@@ -37,7 +37,6 @@ fichier ::= while fichier|
 			function fichier |
 			FIN fichier |
 			STRING fichier |
-			SEP fichier |
 			FIN
 	;
 	
@@ -66,4 +65,4 @@ afficher ::= AFFICH PG STRING PD;
 
 lire ::= LIR PG PD;
 
-function ::= FONCTION SEP TYPE SEP STRING param ACG fichier ACD;
+function ::= FONCTION TYPE STRING param ACG fichier ACD;

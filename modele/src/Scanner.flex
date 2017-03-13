@@ -18,7 +18,6 @@ import java_cup.runtime.Symbol;
 %debug
 
 /* macros */
-SEP     =   [ \t]
 NUM     =   [0-9]+
 FIN     =   \r|\n|\r\n\
 TQ 		=   "while"
@@ -59,7 +58,6 @@ STRING 	= 	[a-z]+ | \* | [A-Z]+ | "'"
 {TQ}		{ return new Symbol(sym.TQ);}
 {PR}		{ return new Symbol(sym.PR);}
 {NUM}       { return new Symbol(sym.NUM);}
-{SEP}       { ; }
 {FIN}		{ return new Symbol(sym.FIN);}
 {STRING}	{ return new Symbol(sym.STRING);}
 {NOM}		{ return new Symbol(sym.NOM);}

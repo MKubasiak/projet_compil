@@ -684,8 +684,8 @@ public class Yylex implements java_cup.runtime.Scanner {
           case 28: break;
           case 2: 
             System.out.println("line: "+(yyline+1)+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [62] { return new Symbol(sym.SEP); }");
-            { return new Symbol(sym.SEP);
+            System.out.println("action [62] { ; }");
+            { ;
             }
           case 29: break;
           case 3: 
