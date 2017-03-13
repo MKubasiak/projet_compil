@@ -59,7 +59,7 @@ STRING 	= 	[a-z]+ | \* | [A-Z]+ | "'"
 {TQ}		{ return new Symbol(sym.TQ);}
 {PR}		{ return new Symbol(sym.PR);}
 {NUM}       { return new Symbol(sym.NUM);}
-{SEP}       { return new Symbol(sym.SEP); }
+{SEP}       { ; }
 {FIN}		{ return new Symbol(sym.FIN);}
 {STRING}	{ return new Symbol(sym.STRING);}
 {NOM}		{ return new Symbol(sym.NOM);}
