@@ -29,7 +29,7 @@ SI		=	"if"
 SINON	=	"else"
 FONCTION=	"fonction"
 LIR		=	"lire()"
-STRING 	= 	[a-z]+ | \* | [A-Z]+ | "'"
+STRING 	= 	[a-z]+ | \* | [A-Z]+ | "'" | ":"
 SEP		= [ \t]
 
 %%
@@ -50,7 +50,7 @@ SEP		= [ \t]
 "|"			{ return new Symbol(sym.OU);}
 "{"			{ return new Symbol(sym.ACG);}
 "}"			{ return new Symbol(sym.ACD);}
-"::"			{ return new Symbol(sym.DP);}
+"::"		{ return new Symbol(sym.DP);}
 ","			{ return new Symbol(sym.VIRGULE);}
 ";"			{;}
 {SI} 		{ return new Symbol(sym.SI);}

@@ -1,5 +1,5 @@
 /*
- * Une expression arithméthique
+ * Une expression arithmethique
  */
  
  int x;
@@ -9,3 +9,4 @@
 fonction void main(){
 	x <- (a**2)+b-5/3;
  }
+ 
