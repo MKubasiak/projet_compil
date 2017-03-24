@@ -66,3 +66,4 @@ SEP		= [ \t]
 {FIN}		{ return new Symbol(sym.FIN);}
 {STRING}	{ return new Symbol(sym.STRING);}
 {NOM}		{ return new Symbol(sym.NOM);}
+""			{;}
