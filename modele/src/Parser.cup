@@ -53,8 +53,8 @@ while ::= TQ param ACG fichier ACD;
 for ::= PR param ACG fichier ACD;
 
 declaration ::= TYPE STRING |
-				TYPE STRING VIRGULE STRING| /* pas optimiser */
-				TYPE STRING VIRGULE STRING VIRGULE STRING| /* pas optimiser */
+				TYPE STRING VIRGULE STRING| /* pas optimisé */
+				TYPE STRING VIRGULE STRING VIRGULE STRING| /* pas optimisé */
 				TYPE STRING AFFECTE STRING |
 				TYPE STRING AFFECTE NUM |
 				TYPE STRING AFFECTE methode;
@@ -72,10 +72,11 @@ affect ::= STRING AFFECTE STRING |
 
 expression ::= PG typevariable expression |
 			   PD expression |
-			   operation PG typevariable expression | /* pas optimiser */
+			   operation PG typevariable expression | /* pas optimisé */
 			   operation typevariable expression |
-			   typevariable operation typevariable |  /* pas optimiser */
-			   typevariable operation typevariable operation typevariable |  /* pas optimiser */
+			   typevariable operation typevariable |  /* pas optimisé */
+			   typevariable operation typevariable operation typevariable |  /* pas optimisé */
+			   typevariable operation methode | 
 			   commentaire FIN|
 			   FIN;
 			   
