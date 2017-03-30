@@ -112,7 +112,6 @@ fonction int f(){
 
 fonction int g(){
 	int j, l2, l3, l4;
-	
 	l2 <- 2; l3 = 3; l4 = 4;
 	j <- 10 + l2 + l3 + l4;
 

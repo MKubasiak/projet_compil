@@ -29,7 +29,7 @@ SI		=	"if"
 SINON	=	"else"
 FONCTION=	"fonction"
 LIR		=	"lire()"
-STRING 	= 	[a-z]+ | \* | [A-Z]+ | "'" | ":"
+STRING 	= 	[a-z]+[0-9]* | \* | [A-Z]+ | "'" | ":"
 SEP		= [ \t]
 
 %%

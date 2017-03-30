@@ -52,12 +52,12 @@ while ::= TQ param ACG fichier ACD;
 
 for ::= PR param ACG fichier ACD;
 
-declaration ::= TYPE STRING |
-				TYPE STRING VIRGULE STRING| /* pas optimisé */
-				TYPE STRING VIRGULE STRING VIRGULE STRING| /* pas optimisé */
-				TYPE STRING AFFECTE STRING |
-				TYPE STRING AFFECTE NUM |
-				TYPE STRING AFFECTE methode;
+declaration ::= TYPE typevariable |
+				TYPE typevariable VIRGULE typevariable| /* pas optimisé */
+				TYPE typevariable VIRGULE typevariable VIRGULE typevariable| /* pas optimisé */
+				TYPE typevariable VIRGULE typevariable VIRGULE typevariable VIRGULE typevariable| /* pas optimisé */
+				TYPE typevariable AFFECTE typevariable |
+				TYPE typevariable AFFECTE methode;
 
 commentaire ::= COM text FCOM;
 
@@ -76,7 +76,7 @@ expression ::= PG typevariable expression |
 			   operation typevariable expression |
 			   typevariable operation typevariable |  /* pas optimisé */
 			   typevariable operation typevariable operation typevariable |  /* pas optimisé */
-			   typevariable operation methode| 
+			   typevariable operation STRING param| 
 			   commentaire FIN|
 			   FIN;
 			   
