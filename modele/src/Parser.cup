@@ -10,8 +10,10 @@ package fr.ul.miage.exemple.generated;
 
 
 
-non terminal fichier, while, for, declaration, commentaire, doc, if, else, affect, retourne, afficher, lire, function, param, expr, expression, operation, methode, text, typevariable;
-terminal TQ, PR, PD,NUM, PG, ACD, ACG, ET, OU, PLUS, FOIS, MOINS, DIV, NOM, AFFECTE, SI, SINON, TYPE, FONCTION, DP, RT, LIR, STRING, FIN, COM, FCOM, AFFICH, ENTREE, VIRGULE;
+non terminal programme, while, for, declaration, commentaire, doc, if, else, affectation, retourne, afficher, lire, function, 
+param, expr, expression, operation, methode, text, typevariable, bloc, instruction, condition ,conditionPour, facteur, atome;
+terminal TQ, PR, PD,NUM, PG, ACD, ACG, ET, OU, PLUS, FOIS, MOINS, DIV, NOM, AFFECTE, SI, SINON, TYPE, FONCTION, DP, RT, LIR,
+ STRING, FIN, COM, FCOM, AFFICH, ENTREE, VIRGULE, IDF, CONSTANTE;
 /* 	TQ : Tant que ; 
 	PR : Pour ; 
 	PD : Parenth�se droite ; 
@@ -19,90 +21,67 @@ terminal TQ, PR, PD,NUM, PG, ACD, ACG, ET, OU, PLUS, FOIS, MOINS, DIV, NOM, AFFE
 	ACD : Accolade gauche ; 
 	ACG : Accolade droite ; 
 	DP : Double point ; 
+	IDF : Identifiant
 	RT : Retourne */
 
 
-start with fichier;
-fichier ::= while fichier|
-			for fichier|
-			declaration fichier|
-			commentaire fichier|
-			doc fichier|
-			if fichier|
-			else fichier|
-			affect fichier|
-			retourne fichier|
-			afficher fichier|
-			lire fichier|
-			function fichier |
-			FIN fichier |
-			STRING fichier |
+start with programme;
+programme ::= function|
+			;
+
+function ::= FONCTION TYPE IDF PG param PD ACG bloc ACD;
+
+param ::= 	TYPE IDF |
+			TYPE IDF VIRGULE param |
+			;
+
+bloc ::= instruction bloc |
+			;
+instruction ::= while |
+			for |
+			declaration |
+			if |
+			else |
+			affectation |
+			retourne |
+			afficher |
+			lire |
+			function |
 			FIN;
+		
 			
-text  ::=	STRING text|
-			FIN text |
-			STRING |
-			FIN;			
-	
-param ::= 	PG TYPE STRING PD |
-			PG TYPE STRING VIRGULE TYPE STRING PD |
-			PG PD;
+while ::= TQ PG condition PD ACG bloc ACD;
+
+for ::= PR PG conditionPour PD ACG programme ACD;
+
+declaration ::= TYPE IDF |
+				TYPE IDF VIRGULE declaration |
+				TYPE affectation ;
+
+affectation ::= IDF AFFECTE IDF |
+		   IDF AFFECTE expression ;
+		   //IDF AFFECTE methode;
+
+
+if ::= SI PG condition PD ACG bloc ACD else;
+
+else ::= SINON PG condition PD ACG bloc ACD|
+			;
+
+retourne ::= RT expression ;
+
+afficher ::= AFFICH PG expression PD;
+
+lire ::= LIR PG PD;
+
+expression ::= expression PLUS facteur |
+				expression MOINS facteur |
+				facteur;
+
+facteur ::= facteur DIV atome |
+			facteur FOIS atome |
+			atome;
 			
-while ::= TQ param ACG fichier ACD;
+atome ::= IDF | CONSTANTE | lire | PG expression PD;
 
-for ::= PR param ACG fichier ACD;
 
-declaration ::= TYPE typevariable |
-				TYPE typevariable VIRGULE typevariable| /* pas optimisé */
-				TYPE typevariable VIRGULE typevariable VIRGULE typevariable| /* pas optimisé */
-				TYPE typevariable VIRGULE typevariable VIRGULE typevariable VIRGULE typevariable| /* pas optimisé */
-				TYPE typevariable AFFECTE typevariable |
-				TYPE typevariable AFFECTE methode;
-
-commentaire ::= COM text FCOM;
-
-if ::= SI PG STRING PD ACG fichier ACD;
-
-else ::= SINON PG STRING PD ACG fichier ACD;
-
-affect ::= STRING AFFECTE typevariable |
-		   STRING AFFECTE expression |
-		   STRING AFFECTE methode;
-
-expression ::= PG typevariable expression |
-			   PD expression |
-			   operation PG typevariable expression | /* pas optimisé */
-			   operation typevariable expression |
-			   typevariable operation typevariable |  /* pas optimisé */
-			   typevariable operation typevariable operation typevariable |  /* pas optimisé */
-			   typevariable operation typevariable operation typevariable operation typevariable | /* pas optimisé */
-			   typevariable operation STRING param| 
-			   commentaire FIN|
-			   FIN;
-			   
-operation ::= PLUS |
-			  FOIS |
-			  MOINS |
-			  DIV;
-
-typevariable ::= NUM |
-				 STRING;
-			  
-			  
-
-retourne ::= RT STRING |
-			 RT STRING operation STRING |
-			 RT STRING operation NUM |
-			 RT NUM operation STRING |
-			 RT NUM operation NUM;
-
-afficher ::= AFFICH PG STRING PD |
-			 AFFICH PG methode PD;
-
-methode ::= LIR |
-			STRING PG expression PD |
-			STRING PG expression VIRGULE expression PD |
-			STRING PG expression VIRGULE STRING PD |
-			STRING PG expression VIRGULE NUM PD;
-
-function ::= FONCTION TYPE STRING param ACG fichier ACD;
