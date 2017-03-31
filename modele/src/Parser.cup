@@ -65,8 +65,7 @@ if ::= SI PG STRING PD ACG fichier ACD;
 
 else ::= SINON PG STRING PD ACG fichier ACD;
 
-affect ::= STRING AFFECTE STRING |
-		   STRING AFFECTE NUM |
+affect ::= STRING AFFECTE typevariable |
 		   STRING AFFECTE expression |
 		   STRING AFFECTE methode;
 
@@ -76,6 +75,7 @@ expression ::= PG typevariable expression |
 			   operation typevariable expression |
 			   typevariable operation typevariable |  /* pas optimisé */
 			   typevariable operation typevariable operation typevariable |  /* pas optimisé */
+			   typevariable operation typevariable operation typevariable operation typevariable | /* pas optimisé */
 			   typevariable operation STRING param| 
 			   commentaire FIN|
 			   FIN;
@@ -100,7 +100,6 @@ afficher ::= AFFICH PG STRING PD |
 			 AFFICH PG methode PD;
 
 methode ::= LIR |
-			//STRING PG PD |
 			STRING PG expression PD |
 			STRING PG expression VIRGULE expression PD |
 			STRING PG expression VIRGULE STRING PD |

@@ -112,16 +112,16 @@ fonction int f(){
 
 fonction int g(){
 	int j, l2, l3, l4;
-	l2 <- 2; l3 = 3; l4 = 4;
+	l2 <- 2; l3 <- 3; l4 <- 4;
 	j <- 10 + l2 + l3 + l4;
 
 	retourne i+j;
 }
 
-fonction main(){
+fonction void main(){
 	i<-0;
 	j<-1;
-	k<-f();	
+	k<- f() ;	
 }
  
  
