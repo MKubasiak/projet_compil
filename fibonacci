@@ -25,7 +25,7 @@ fonction int fibonacci (int n){
 }
 
 fonction void main(int n){
-	pour ( int i = 1; i <= n; i++){
+	pour ( int i <- 1; i <= n; i++){
 		ecrire(i);
 		ecrire( " : ");
 		ecrire(fibonnacci(i));
