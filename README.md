@@ -42,7 +42,20 @@ Parenthèse est la plus prioritaire.
 
 
 
+A chaque identificateur, doit être une référence dans la table des symboles, soit on est en train de le définir et le mettre
+dans la table des symboles.
+fonction ::= type IDF:s PO param PF corps
+					{: contexte = s :} (entre IDF, et PO)
+			;
+definition ::= type IDF:s PV {: rangerTDS(s,contexte);:}
+			;
+affectation ::= IDF FG expr {: x=rechercherTDS(s,contexte) }
+s : string si IDF:s
+où trouver la variable contexte ? Dès que je rentre dans une fonction, on insère une opération définissant le contexte*			
+;
 
+Création d'un noeud pour idf.
+Il faut qu'il a une variable contexte, pas une pile, (+ simple)..
 
 --------------------------------------------------------------------------------------------
 A faire après modification : 
