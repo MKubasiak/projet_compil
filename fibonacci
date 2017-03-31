@@ -1,0 +1,36 @@
+public class Fibonacci {
+    public static long fibonacci(int n) {
+        if (n <= 1) return n;
+        else return fibonacci(n-1) + fibonacci(n-2);
+    }
+
+    public static void main(String[] args) {
+        int n = Integer.parseInt(args[0]);
+        for (int i = 1; i <= n; i++)
+            StdOut.println(i + ": " + fibonacci(i));
+    }
+
+}
+
+
+// Programme traduit
+
+fonction int fibonacci (int n){
+	si (n <= 1 ) {
+	retourne n
+	}
+	sinon {
+	retourne fibonacci(n-1) + fibonacci(n-2)
+}
+
+fonction void main(int n){
+	pour ( int i = 1; i <= n; i++){
+		ecrire(i);
+		ecrire( " : ");
+		ecrire(fibonnacci(i));
+	}
+}
+	
+	
+	
+	 
