@@ -39,3 +39,12 @@ La partie expression est ambigu :
 If faut hiéarchiser les priorités.
 Du moins vers le plus prioritaires.
 Parenthèse est la plus prioritaire.
+
+
+
+
+
+--------------------------------------------------------------------------------------------
+A faire après modification : 
+
+- Grammaire pour le "pour"
