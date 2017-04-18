@@ -18,7 +18,7 @@ import java_cup.runtime.Symbol;
 %debug
 
 /* macros */
-NUM     =   [0-9]+
+CONSTANTE =   [0-9]+
 FIN     =   \r|\n|\r\n\
 TQ 		=   "while"
 PR		=	"for"
@@ -29,8 +29,9 @@ SI		=	"if"
 SINON	=	"else"
 FONCTION=	"fonction"
 LIR		=	"lire()"
-STRING 	= 	[a-z]+[0-9]* | \* | [A-Z]+ | "'" | ":"
-SEP		= [ \t]
+SEP		=   [ \t]
+COM     =   (\/\*) | "*" 
+IDF		=	[a-z]+
 
 %%
 
@@ -38,11 +39,10 @@ SEP		= [ \t]
 
 "("         { return new Symbol(sym.PG);}
 ")"         { return new Symbol(sym.PD);}
-"/*"		{ return new Symbol(sym.COM);}
-"*/"		{ return new Symbol(sym.FCOM);}
 "<-"		{ return new Symbol(sym.AFFECTE);}
 "afficher"	{ return new Symbol(sym.AFFICH);}
 "+"         { return new Symbol(sym.PLUS);}
+{COM}		{;}
 "/"			{ return new Symbol(sym.DIV);}
 "-"			{ return new Symbol(sym.MOINS);}
 "**"		{ return new Symbol(sym.FOIS);}
@@ -61,9 +61,9 @@ SEP		= [ \t]
 {FONCTION}	{ return new Symbol(sym.FONCTION);}
 {TQ}		{ return new Symbol(sym.TQ);}
 {PR}		{ return new Symbol(sym.PR);}
-{NUM}       { return new Symbol(sym.NUM);}
+{CONSTANTE} { return new Symbol(sym.CONSTANTE);}
 {SEP}		{;}
 {FIN}		{ return new Symbol(sym.FIN);}
-{STRING}	{ return new Symbol(sym.STRING);}
+{IDF}		{ return new Symbol(sym.IDF);}
 {NOM}		{ return new Symbol(sym.NOM);}
 ""			{;}

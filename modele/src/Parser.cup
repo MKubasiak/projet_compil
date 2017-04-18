@@ -10,10 +10,9 @@ package fr.ul.miage.exemple.generated;
 
 
 
-non terminal programme, while, for, declaration, commentaire, doc, if, else, affectation, retourne, afficher, lire, function, 
-param, expr, expression, operation, methode, text, typevariable, bloc, instruction, condition ,conditionPour, facteur, atome;
-terminal TQ, PR, PD,NUM, PG, ACD, ACG, ET, OU, PLUS, FOIS, MOINS, DIV, NOM, AFFECTE, SI, SINON, TYPE, FONCTION, DP, RT, LIR,
- STRING, FIN, COM, FCOM, AFFICH, ENTREE, VIRGULE, IDF, CONSTANTE;
+non terminal programme,function,param, bloc,instruction;
+terminal PD, PG, ACD, ACG, TYPE, FONCTION, FIN, VIRGULE, IDF, CONSTANTE, DIV, MOINS, PLUS, ET, OU, SI, FOIS, AFFECTE, DP, PR, SINON,
+TQ,LIR,RT,AFFICH;
 /* 	TQ : Tant que ; 
 	PR : Pour ; 
 	PD : Parenth�se droite ; 
@@ -37,7 +36,11 @@ param ::= 	TYPE IDF |
 
 bloc ::= instruction bloc |
 			;
-instruction ::= while |
+			
+instruction ::= FIN;
+
+/*
+			while |
 			for |
 			declaration |
 			if |
@@ -46,8 +49,7 @@ instruction ::= while |
 			retourne |
 			afficher |
 			lire |
-			function |
-			FIN;
+			function;
 		
 			
 while ::= TQ PG condition PD ACG bloc ACD;
@@ -68,6 +70,8 @@ if ::= SI PG condition PD ACG bloc ACD else;
 else ::= SINON PG condition PD ACG bloc ACD|
 			;
 
+condition ::= ;			
+
 retourne ::= RT expression ;
 
 afficher ::= AFFICH PG expression PD;
@@ -75,8 +79,8 @@ afficher ::= AFFICH PG expression PD;
 lire ::= LIR PG PD;
 
 expression ::= expression PLUS facteur |
-				expression MOINS facteur |
-				facteur;
+			   expression MOINS facteur |
+			   facteur;
 
 facteur ::= facteur DIV atome |
 			facteur FOIS atome |
@@ -84,4 +88,4 @@ facteur ::= facteur DIV atome |
 			
 atome ::= IDF | CONSTANTE | lire | PG expression PD;
 
-
+*/
