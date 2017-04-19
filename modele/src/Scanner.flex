@@ -30,7 +30,8 @@ SINON	=	"else"
 FONCTION=	"fonction"
 LIR		=	"lire()"
 SEP		=   [ \t]
-COM     =   (\/\*) | "*" 
+DOC		=   \/\/ (\s [A-Z]*[a-z]*[0-9]*)*
+COM     =   (\/\*) | \* ([\s]? [A-Z]*[a-z]*[\']*)* | \*\/
 IDF		=	[a-z]+
 
 %%
@@ -43,6 +44,7 @@ IDF		=	[a-z]+
 "afficher"	{ return new Symbol(sym.AFFICH);}
 "+"         { return new Symbol(sym.PLUS);}
 {COM}		{;}
+{DOC}		{;}
 "/"			{ return new Symbol(sym.DIV);}
 "-"			{ return new Symbol(sym.MOINS);}
 "**"		{ return new Symbol(sym.FOIS);}
@@ -63,7 +65,6 @@ IDF		=	[a-z]+
 {PR}		{ return new Symbol(sym.PR);}
 {CONSTANTE} { return new Symbol(sym.CONSTANTE);}
 {SEP}		{;}
-{FIN}		{ return new Symbol(sym.FIN);}
+{FIN}		{;}
 {IDF}		{ return new Symbol(sym.IDF);}
 {NOM}		{ return new Symbol(sym.NOM);}
-""			{;}

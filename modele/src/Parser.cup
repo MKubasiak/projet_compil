@@ -10,7 +10,7 @@ package fr.ul.miage.exemple.generated;
 
 
 
-non terminal programme,function,param, bloc,instruction;
+non terminal programme,function,param, bloc,instruction, declaration, affectation, expression, facteur, atome, lire;
 terminal PD, PG, ACD, ACG, TYPE, FONCTION, FIN, VIRGULE, IDF, CONSTANTE, DIV, MOINS, PLUS, ET, OU, SI, FOIS, AFFECTE, DP, PR, SINON,
 TQ,LIR,RT,AFFICH;
 /* 	TQ : Tant que ; 
@@ -37,12 +37,33 @@ param ::= 	TYPE IDF |
 bloc ::= instruction bloc |
 			;
 			
-instruction ::= FIN;
+instruction ::= declaration |
+				FIN;
+				
+				
+declaration ::= TYPE IDF |
+				TYPE IDF VIRGULE declaration |
+				TYPE affectation ;				
+
+affectation ::= IDF AFFECTE IDF |
+		   		IDF AFFECTE expression ;
+		   		//IDF AFFECTE methode;
+		   		
+expression ::= expression PLUS facteur |
+			   expression MOINS facteur |
+			   facteur;
+
+facteur ::= facteur DIV atome |
+			facteur FOIS atome |
+			atome;
+			
+atome ::= IDF | CONSTANTE | lire | PG expression PD;		   		
+
+lire ::= LIR PG PD;
 
 /*
 			while |
 			for |
-			declaration |
 			if |
 			else |
 			affectation |
@@ -56,15 +77,6 @@ while ::= TQ PG condition PD ACG bloc ACD;
 
 for ::= PR PG conditionPour PD ACG programme ACD;
 
-declaration ::= TYPE IDF |
-				TYPE IDF VIRGULE declaration |
-				TYPE affectation ;
-
-affectation ::= IDF AFFECTE IDF |
-		   IDF AFFECTE expression ;
-		   //IDF AFFECTE methode;
-
-
 if ::= SI PG condition PD ACG bloc ACD else;
 
 else ::= SINON PG condition PD ACG bloc ACD|
@@ -76,16 +88,5 @@ retourne ::= RT expression ;
 
 afficher ::= AFFICH PG expression PD;
 
-lire ::= LIR PG PD;
-
-expression ::= expression PLUS facteur |
-			   expression MOINS facteur |
-			   facteur;
-
-facteur ::= facteur DIV atome |
-			facteur FOIS atome |
-			atome;
-			
-atome ::= IDF | CONSTANTE | lire | PG expression PD;
 
 */

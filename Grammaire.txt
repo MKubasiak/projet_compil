@@ -1,3 +1,28 @@
+// Test 0
+
+/*
+ * Test plus complet pour savoir si l'analyseur
+ * syntaxique fonctionne
+ */
+ 
+ fonction void main(){
+ 	int i <- 0 ;
+ 	int j; 
+ 
+ 	fonction  int f(int a, int b){
+		int x;
+		x <- (a**2)+b-5/3;
+		retourne x+2;
+ 	}
+ 
+ 	fonction void main(){
+ 		int j <- lire();
+ 		afficher(f(i+1,j));
+ 	}
+}
+
+// Test 1
+
 /*
  * Le plus petit programme
  */
