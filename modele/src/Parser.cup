@@ -10,9 +10,9 @@ package fr.ul.miage.exemple.generated;
 
 
 
-non terminal programme,function,param, bloc,instruction, declaration, affectation, expression, facteur, atome, lire;
+non terminal programme,function,param, bloc,instruction, declaration, affectation, expression, facteur, atome, lire, retourne, afficher, paramAppel, methodeAppel, if, else, condition, operation, while;
 terminal PD, PG, ACD, ACG, TYPE, FONCTION, FIN, VIRGULE, IDF, CONSTANTE, DIV, MOINS, PLUS, ET, OU, SI, FOIS, AFFECTE, DP, PR, SINON,
-TQ,LIR,RT,AFFICH;
+TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPETITEGALE;
 /* 	TQ : Tant que ; 
 	PR : Pour ; 
 	PD : Parenth�se droite ; 
@@ -25,7 +25,7 @@ TQ,LIR,RT,AFFICH;
 
 
 start with programme;
-programme ::= function|
+programme ::= function programme|
 			;
 
 function ::= FONCTION TYPE IDF PG param PD ACG bloc ACD;
@@ -38,16 +38,51 @@ bloc ::= instruction bloc |
 			;
 			
 instruction ::= declaration |
+				function |
+				affectation |
+				retourne |
+				afficher |
+				if |
+				while |
+				methodeAppel |
 				FIN;
+			
+while ::= TQ PG condition PD ACG bloc ACD;			
 				
+if ::= SI PG condition PD ACG bloc ACD else;
+
+else ::= SINON ACG bloc ACD|
+			;
+
+condition ::= expression operation expression |
+			  expression operation expression ET condition |
+			  expression operation expression OU condition;
+			  
+operation ::= PLUSGRAND |
+			  EGALE |
+			  PLUSPETIT |
+			  DIFFERENT |
+			  PLUSGRANDEGALE |
+			  PLUSPETITEGALE;
 				
+retourne ::= RT expression ;
+
+afficher ::= AFFICH PG expression PD;
+			 
+			 
+methodeAppel ::= IDF PG paramAppel PD;
+			 
+paramAppel ::=  expression |
+				expression VIRGULE paramAppel |
+				;			 
+												
 declaration ::= TYPE IDF |
 				TYPE IDF VIRGULE declaration |
-				TYPE affectation ;				
+				IDF VIRGULE declaration |
+				TYPE affectation |
+				IDF;				
 
-affectation ::= IDF AFFECTE IDF |
-		   		IDF AFFECTE expression ;
-		   		//IDF AFFECTE methode;
+affectation ::= IDF AFFECTE expression;
 		   		
 expression ::= expression PLUS facteur |
 			   expression MOINS facteur |
@@ -57,36 +92,20 @@ facteur ::= facteur DIV atome |
 			facteur FOIS atome |
 			atome;
 			
-atome ::= IDF | CONSTANTE | lire | PG expression PD;		   		
+atome ::= methodeAppel | IDF | CONSTANTE | lire | PG expression PD ;		   		
 
 lire ::= LIR PG PD;
 
+
+
 /*
-			while |
-			for |
-			if |
-			else |
-			affectation |
-			retourne |
-			afficher |
-			lire |
-			function;
 		
-			
-while ::= TQ PG condition PD ACG bloc ACD;
+			for |
+			else |
+			lire |
+		
 
 for ::= PR PG conditionPour PD ACG programme ACD;
-
-if ::= SI PG condition PD ACG bloc ACD else;
-
-else ::= SINON PG condition PD ACG bloc ACD|
-			;
-
-condition ::= ;			
-
-retourne ::= RT expression ;
-
-afficher ::= AFFICH PG expression PD;
-
+		
 
 */

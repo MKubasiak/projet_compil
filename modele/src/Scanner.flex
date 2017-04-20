@@ -20,19 +20,19 @@ import java_cup.runtime.Symbol;
 /* macros */
 CONSTANTE =   [0-9]+
 FIN     =   \r|\n|\r\n\
-TQ 		=   "while"
-PR		=	"for"
+TQ 		=   "tantque"
+PR		=	"pour"
 RT		=	"retourne"
 NOM		=	[a-z]+
 TYPE	=	"int" | "void"
-SI		=	"if"
-SINON	=	"else"
+SI		=	"si"
+SINON	=	"sinon"
 FONCTION=	"fonction"
-LIR		=	"lire()"
+LIR		=	"lire"
 SEP		=   [ \t]
 DOC		=   \/\/ (\s [A-Z]*[a-z]*[0-9]*)*
-COM     =   (\/\*) | \* ([\s]? [A-Z]*[a-z]*[\']*)* | \*\/
-IDF		=	[a-z]+
+COM     =   ((\/\*) | \*)([\s]? [A-Z]*[a-z]*[\']*[\:]*[\(]*[\)]*[\,]*[\<]*[\-]*)* | \*\/
+IDF		=	[a-z]+[0-9]*
 
 %%
 
@@ -50,6 +50,12 @@ IDF		=	[a-z]+
 "**"		{ return new Symbol(sym.FOIS);}
 "&"			{ return new Symbol(sym.ET);}
 "|"			{ return new Symbol(sym.OU);}
+">"			{ return new Symbol(sym.PLUSGRAND);}
+"<"         { return new Symbol(sym.PLUSPETIT);}
+"=="		{ return new Symbol(sym.EGALE);}
+"!="		{ return new Symbol(sym.DIFFERENT);}
+">="		{ return new Symbol(sym.PLUSGRANDEGALE);}
+"<="		{ return new Symbol(sym.PLUSPETITEGALE);}
 "{"			{ return new Symbol(sym.ACG);}
 "}"			{ return new Symbol(sym.ACD);}
 "::"		{ return new Symbol(sym.DP);}
