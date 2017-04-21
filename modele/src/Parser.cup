@@ -57,11 +57,11 @@ instruction ::= declaration |
 				methodeAppel |
 				FIN;
 			
-while ::= TQ:tq PG condition PD ACG bloc ACD {: tab.add(tq.toString()); tab.add("while"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};			
+while ::= TQ:tq PG condition PD ACG bloc ACD {: tab.add(tq.toString()); arbre.ajouterInstructionAvant(tab,1); tab = new ArrayList<String>(); :};			
 				
-if ::= SI:si PG condition PD ACG bloc ACD else {: tab.add(si.toString()); tab.add("if"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:} ;
+if ::= SI:si PG condition PD ACG bloc ACD else {: tab.add(si.toString()); arbre.ajouterInstructionAvant(tab,2); tab = new ArrayList<String>();:} ;
 
-else ::= SINON:sinon ACG bloc ACD {: tab.add(sinon.toString()); tab.add("else"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:}|
+else ::= SINON:sinon ACG bloc ACD {: tab.add(sinon.toString()); arbre.ajouterInstructionAvant(tab,1); tab = new ArrayList<String>();:}|
 			;
 
 condition ::= expression operation expression {: tab.add("Condition"); :} |
@@ -89,7 +89,7 @@ paramAppel ::=  expression |
 declaration ::= TYPE:ty IDF:id {: tab.add(ty.toString()); tab.add(id.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
 				TYPE:ty IDF:id VIRGULE:virg declaration {: tab.add(ty.toString()); tab.add(id.toString()); tab.add(virg.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
 				IDF:id VIRGULE:virg declaration {: tab.add(id.toString()); tab.add(virg.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
-				TYPE:ty affectation {: tab.add(ty.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
+				TYPE:ty affectation {: tab.add(ty.toString()); tab.add("declaration"); arbre.ajouterInstructionAvant(tab,1); tab = new ArrayList<String>(); :}|
 				IDF:id {: tab.add(id.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};				
 
 affectation ::= IDF:id AFFECTE:aff expression {: tab.add(aff.toString()); tab.add(id.toString()); tab.add("Affectation"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:};

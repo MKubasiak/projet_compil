@@ -23,6 +23,15 @@ public class Arbre_abstrait {
 		nb_instructions = nb_instructions + 1;
 	}
 	
+	public void ajouterInstructionAvant(ArrayList<String> instruction, int nombre) {
+		ArrayList<String> tempo = new ArrayList<String>();
+		tempo = listInstructions.get(nb_instructions-nombre);
+		ArrayList<String> complete = new ArrayList<String>();
+		complete.addAll(instruction);
+		complete.addAll(tempo);
+		listInstructions.put(nb_instructions-nombre, complete);
+	}
+	
 	public void afficherListe() {
 		for(Entry<Integer, ArrayList<String>> entry : listInstructions.entrySet()) {
 		    Integer cle = entry.getKey();
