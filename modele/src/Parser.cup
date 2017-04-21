@@ -6,7 +6,7 @@
  */ 
 package fr.ul.miage.exemple.generated;
 
-import fr.ul.miage.exemple.Arbre_abstrait.java;
+import fr.ul.miage.exemple.Arbre_abstrait;
 
 action code{:
 
