@@ -6,26 +6,11 @@
  */ 
 package fr.ul.miage.exemple.generated;
 
-
-import java.util.LinkedList;
+import fr.ul.miage.exemple.Arbre_abstrait.java;
 
 action code{:
 
-	LinkedList<Object> prog = new LinkedList<>();
-
-
-	public void ajouterALaListe(String[] tab){
-		for(String elem : tab){
-			prog.add(elem);
-		}
-	}
-
-	
-	public void showList(){
-		for(Object elem : prog){
-			System.out.println(elem);
-		}
-	}
+	Arbre_abstrait arbre = new Arbre_abstrait();	
 
 :}
 
@@ -48,13 +33,13 @@ TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPE
 
 
 start with programme;
-programme ::= main {: showList(); :};
+programme ::= main {: arbre.afficherListe(); :};
 			
-main ::= FONCTION:f TYPE MAIN:main PG PD ACG bloc ACD {: ajouterALaListe(new String[]{f.toString(),main.toString()}); :};			
+main ::= FONCTION:f TYPE MAIN:main PG PD ACG bloc ACD {: arbre.ajouterInstruction(new String[]{f.toString(),main.toString()}); :};			
 
-function ::= FONCTION:f TYPE:t IDF PG param PD ACG bloc ACD {: ajouterALaListe(new String[]{f.toString(), t.toString()});:};
+function ::= FONCTION:f TYPE:t IDF PG param PD ACG bloc ACD {: arbre.ajouterInstruction(new String[]{f.toString(), t.toString()});:};
 
-param ::= 	TYPE:t IDF:id {: ajouterALaListe(new String[]{t.toString(), id.toString()}); :} | 
+param ::= 	TYPE:t IDF:id {: arbre.ajouterInstruction(new String[]{t.toString(), id.toString()}); :} | 
 			TYPE IDF VIRGULE param |
 			;
 
@@ -71,57 +56,57 @@ instruction ::= declaration |
 				methodeAppel |
 				FIN;
 			
-while ::= TQ:tq PG condition PD ACG bloc ACD {: ajouterALaListe(new String[]{tq.toString()}); :} ;			
+while ::= TQ:tq PG condition PD ACG bloc ACD {: arbre.ajouterInstruction(new String[]{tq.toString()}); :} ;			
 				
-if ::= SI:si PG condition PD ACG bloc ACD else {: ajouterALaListe(new String[]{si.toString()}); :} ;
+if ::= SI:si PG condition PD ACG bloc ACD else {: arbre.ajouterInstruction(new String[]{si.toString()}); :} ;
 
-else ::= SINON:sinon ACG bloc ACD {: ajouterALaListe(new String[]{sinon.toString()}); :}|
+else ::= SINON:sinon ACG bloc ACD {: arbre.ajouterInstruction(new String[]{sinon.toString()}); :}|
 			;
 
 condition ::= expression operation expression |
 			  expression operation expression ET condition |
 			  expression operation expression OU condition;
 			  
-operation ::= PLUSGRAND:pg 		{: ajouterALaListe(new String[]{pg.toString()}); :}|
-			  EGALE:eg 			{: ajouterALaListe(new String[]{eg.toString()}); :}|
-			  PLUSPETIT:pp 		{: ajouterALaListe(new String[]{pp.toString()}); :}|
-			  DIFFERENT:dif 		{: ajouterALaListe(new String[]{dif.toString()}); :}|
-			  PLUSGRANDEGALE:pge	{: ajouterALaListe(new String[]{pge.toString()}); :}|
-			  PLUSPETITEGALE:ppe	{: ajouterALaListe(new String[]{ppe.toString()}); :};
+operation ::= PLUSGRAND:pg 		{: arbre.ajouterInstruction(new String[]{pg.toString()}); :}|
+			  EGALE:eg 			{: arbre.ajouterInstruction(new String[]{eg.toString()}); :}|
+			  PLUSPETIT:pp 		{: arbre.ajouterInstruction(new String[]{pp.toString()}); :}|
+			  DIFFERENT:dif 		{: arbre.ajouterInstruction(new String[]{dif.toString()}); :}|
+			  PLUSGRANDEGALE:pge	{: arbre.ajouterInstruction(new String[]{pge.toString()}); :}|
+			  PLUSPETITEGALE:ppe	{: arbre.ajouterInstruction(new String[]{ppe.toString()}); :};
 				
-retourne ::= RT:rt expression {: ajouterALaListe(new String[]{rt.toString()}); :};
+retourne ::= RT:rt expression {: arbre.ajouterInstruction(new String[]{rt.toString()}); :};
 
-afficher ::= AFFICH:aff PG expression PD {: ajouterALaListe(new String[]{aff.toString()}); :};
+afficher ::= AFFICH:aff PG expression PD {: arbre.ajouterInstruction(new String[]{aff.toString()}); :};
 			 
 			 
-methodeAppel ::= IDF:id PG paramAppel PD {: ajouterALaListe(new String[]{"methode", id.toString()}); :};
+methodeAppel ::= IDF:id PG paramAppel PD {: arbre.ajouterInstruction(new String[]{"methode", id.toString()}); :};
 			 
 paramAppel ::=  expression |
-				expression VIRGULE:virg paramAppel {: ajouterALaListe(new String[]{virg.toString()}); :}|
+				expression VIRGULE:virg paramAppel {: arbre.ajouterInstruction(new String[]{virg.toString()}); :}|
 				;			 
 												
-declaration ::= TYPE:ty IDF:id {: ajouterALaListe(new String[]{"declaration", ty.toString(), id.toString()}); :}|
-				TYPE:ty IDF:id VIRGULE:virg declaration {: ajouterALaListe(new String[]{"declaration", ty.toString(), id.toString(), virg.toString()}); :}|
-				IDF:id VIRGULE:virg declaration {: ajouterALaListe(new String[]{"declaration", id.toString(), virg.toString() }); :}|
-				TYPE:ty affectation {: ajouterALaListe(new String[]{"declaration", ty.toString()}); :}|
-				IDF:id {: ajouterALaListe(new String[]{"declaration", id.toString()}); :};				
+declaration ::= TYPE:ty IDF:id {: arbre.ajouterInstruction(new String[]{"declaration", ty.toString(), id.toString()}); :}|
+				TYPE:ty IDF:id VIRGULE:virg declaration {: arbre.ajouterInstruction(new String[]{"declaration", ty.toString(), id.toString(), virg.toString()}); :}|
+				IDF:id VIRGULE:virg declaration {: arbre.ajouterInstruction(new String[]{"declaration", id.toString(), virg.toString() }); :}|
+				TYPE:ty affectation {: arbre.ajouterInstruction(new String[]{"declaration", ty.toString()}); :}|
+				IDF:id {: arbre.ajouterInstruction(new String[]{"declaration", id.toString()}); :};				
 
-affectation ::= IDF:id AFFECTE:aff expression  {: ajouterALaListe(new String[]{id.toString(), aff.toString()}); :};
+affectation ::= IDF:id AFFECTE:aff expression  {: arbre.ajouterInstruction(new String[]{id.toString(), aff.toString()}); :};
 		   		
-expression ::= expression PLUS:pl facteur {: ajouterALaListe(new String[]{pl.toString()}); :}|
-			   expression MOINS:min facteur {: ajouterALaListe(new String[]{min.toString()}); :}|
+expression ::= expression PLUS:pl facteur {: arbre.ajouterInstruction(new String[]{pl.toString()}); :}|
+			   expression MOINS:min facteur {: arbre.ajouterInstruction(new String[]{min.toString()}); :}|
 			   facteur;
 
-facteur ::= facteur DIV:div atome {: ajouterALaListe(new String[]{div.toString()}); :}|
-			facteur FOIS:mult atome {: ajouterALaListe(new String[]{mult.toString()}); :}|
+facteur ::= facteur DIV:div atome {: arbre.ajouterInstruction(new String[]{div.toString()}); :}|
+			facteur FOIS:mult atome {: arbre.ajouterInstruction(new String[]{mult.toString()}); :}|
 			atome;
 			
 atome ::= methodeAppel 
-		| IDF:id 		{: ajouterALaListe(new String[]{id.toString()}); :} 
-		| CONSTANTE:a 	{: ajouterALaListe(new String[]{a.toString()}); :}
+		| IDF:id 		{: arbre.ajouterInstruction(new String[]{id.toString()}); :} 
+		| CONSTANTE:a 	{: arbre.ajouterInstruction(new String[]{a.toString()}); :}
 		| lire | PG expression PD ;		   		
 
-lire ::= LIR:lir PG PD {: ajouterALaListe(new String[]{lir.toString()}); :};
+lire ::= LIR:lir PG PD {: arbre.ajouterInstruction(new String[]{lir.toString()}); :};
 
 
 
