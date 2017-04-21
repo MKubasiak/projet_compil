@@ -12,6 +12,9 @@ action code{:
 
 	Arbre_abstrait arbre = new Arbre_abstrait();
 	ArrayList<String> tab = new ArrayList<String>();
+	int nombreInstructions = 0;
+	int nombreInstructionsIf = 0;
+	int nombreInstructionsFonction = 0;
 
 :}
 
@@ -19,7 +22,7 @@ action code{:
 
 
 
-non terminal programme,function,param, bloc,instruction, declaration, affectation, expression, facteur, atome, lire, retourne, afficher, paramAppel, methodeAppel, if, else, condition, operation, while, main;
+non terminal programme,function,param, bloc,instruction, declaration, affectation, expression, facteur, atome, lire, retourne, afficher, paramAppel, methodeAppel, if, else, condition, operation, while, main, blocif, blocfonction;
 terminal PD, PG, ACD, ACG, TYPE, FONCTION, FIN, VIRGULE, IDF, CONSTANTE, DIV, MOINS, PLUS, ET, OU, SI, FOIS, AFFECTE, DP, PR, SINON,
 TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPETITEGALE, MAIN;
 /* 	TQ : Tant que ; 
@@ -36,17 +39,23 @@ TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPE
 start with programme;
 programme ::= main {: arbre.afficherListe(); arbre.construireArbre(); :};
 			
-main ::= FONCTION:f TYPE:t MAIN:main PG PD ACG bloc ACD {: tab.add(f.toString()); tab.add(t.toString()); tab.add(main.toString()); tab.add("fonction main"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};			
+main ::= FONCTION:f TYPE:t MAIN:main PG PD ACG bloc ACD {: tab.add(f.toString()); tab.add(t.toString()); tab.add(main.toString()); arbre.ajouterInstructionDebut(tab); tab = new ArrayList<String>(); :};			
 
-function ::= FONCTION:f TYPE:t IDF:i PG param PD ACG bloc ACD {: tab.add(f.toString()); tab.add(t.toString()); tab.add(i.toString()); tab.add("fonction"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};
+function ::= FONCTION:f TYPE:t IDF:i PG param PD ACG blocfonction ACD {: tab.add(f.toString()); tab.add(t.toString()); tab.add(i.toString()); arbre.ajouterInstructionAvant(tab,nombreInstructionsFonction); tab = new ArrayList<String>(); :};
 
-param ::= 	TYPE:t IDF:id {: tab.add(t.toString()); tab.add(id.toString()); :} | 
-			TYPE IDF VIRGULE param |
+param ::= 	TYPE:t IDF:id param {: tab.add(t.toString()); tab.add(id.toString()); tab.add("Parametre"); :} | 
+			TYPE:t IDF:id VIRGULE param {: tab.add(t.toString()); tab.add(id.toString()); tab.add("Parametre"); :} 
+			| {: arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :} ;
+
+bloc ::= instruction bloc {: nombreInstructions = nombreInstructions + 1; :}   |
 			;
 
-bloc ::= instruction bloc |
+blocif ::= instruction blocif {: nombreInstructionsIf = nombreInstructionsIf + 1; nombreInstructions = nombreInstructions + 1; :} |
 			;
 			
+blocfonction ::= instruction blocfonction {: nombreInstructionsFonction = nombreInstructionsFonction + 1; nombreInstructions = nombreInstructions + 1; :} |
+			;						
+
 instruction ::= declaration |
 				function |
 				affectation |
@@ -57,11 +66,11 @@ instruction ::= declaration |
 				methodeAppel |
 				FIN;
 			
-while ::= TQ:tq PG condition PD ACG bloc ACD {: tab.add(tq.toString()); arbre.ajouterInstructionAvant(tab,1); tab = new ArrayList<String>(); :};			
+while ::= TQ:tq PG condition PD ACG bloc ACD {: tab.add(tq.toString()); arbre.ajouterInstructionAvant(tab,nombreInstructions); nombreInstructions = 0; tab = new ArrayList<String>(); :};			
 				
-if ::= SI:si PG condition PD ACG bloc ACD else {: tab.add(si.toString()); arbre.ajouterInstructionAvant(tab,2); tab = new ArrayList<String>();:} ;
+if ::= SI:si PG condition PD ACG blocif ACD else {: tab.add(si.toString()); arbre.ajouterInstructionAvant(tab,nombreInstructions); nombreInstructions = 0; nombreInstructionsIf = 0; tab = new ArrayList<String>();:} ;
 
-else ::= SINON:sinon ACG bloc ACD {: tab.add(sinon.toString()); arbre.ajouterInstructionAvant(tab,1); tab = new ArrayList<String>();:}|
+else ::= SINON:sinon ACG bloc ACD {: tab.add(sinon.toString()); arbre.ajouterInstructionAvant(tab,nombreInstructions-nombreInstructionsIf); tab = new ArrayList<String>();:}|
 			;
 
 condition ::= expression operation expression {: tab.add("Condition"); :} |
@@ -75,14 +84,14 @@ operation ::= PLUSGRAND:pg 		{: tab.add(pg.toString()); :}|
 			  PLUSGRANDEGALE:pge	{: tab.add(pge.toString()); :}|
 			  PLUSPETITEGALE:ppe	{: tab.add(ppe.toString()); :};
 				
-retourne ::= RT:rt expression {: tab.add(rt.toString()); tab.add("return"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};
+retourne ::= RT:rt expression {: tab.add(rt.toString()); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};
 
-afficher ::= AFFICH:aff PG expression PD {: tab.add(aff.toString()); tab.add("afficher"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};
+afficher ::= AFFICH:aff PG expression PD {: tab.add(aff.toString()); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};
 			 
 			 
 methodeAppel ::= IDF:id PG paramAppel PD {: tab.add(id.toString()); tab.add("appelMethode"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};
 			 
-paramAppel ::=  expression |
+paramAppel ::=  expression  |
 				expression VIRGULE:virg paramAppel {: tab.add(virg.toString()); :}|
 				;			 
 												
@@ -90,7 +99,7 @@ declaration ::= TYPE:ty IDF:id {: tab.add(ty.toString()); tab.add(id.toString())
 				TYPE:ty IDF:id VIRGULE:virg declaration {: tab.add(ty.toString()); tab.add(id.toString()); tab.add(virg.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
 				IDF:id VIRGULE:virg declaration {: tab.add(id.toString()); tab.add(virg.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
 				TYPE:ty affectation {: tab.add(ty.toString()); tab.add("declaration"); arbre.ajouterInstructionAvant(tab,1); tab = new ArrayList<String>(); :}|
-				IDF:id {: tab.add(id.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};				
+				IDF:id {: tab.add(id.toString()); tab.add("declaration"); :};				
 
 affectation ::= IDF:id AFFECTE:aff expression {: tab.add(aff.toString()); tab.add(id.toString()); tab.add("Affectation"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:};
 		   		
@@ -107,7 +116,7 @@ atome ::= methodeAppel
 		| CONSTANTE:a 	{: tab.add(a.toString()); :}
 		| lire | PG expression PD ;		   		
 
-lire ::= LIR:lir PG PD {: tab.add(lir.toString()); tab.add("lire"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:};
+lire ::= LIR:lir PG PD {: tab.add(lir.toString()); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:};
 
 
 

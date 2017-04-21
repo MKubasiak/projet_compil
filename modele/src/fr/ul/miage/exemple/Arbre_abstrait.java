@@ -12,7 +12,7 @@ public class Arbre_abstrait {
 	
 	public Arbre_abstrait() {
 		this.listInstructions = new HashMap<Integer,ArrayList<String>>();
-		this.nb_instructions = 0;
+		this.nb_instructions = 1;
 	}
 	
 	public void construireArbre() {
@@ -21,6 +21,10 @@ public class Arbre_abstrait {
 	public void ajouterInstruction(ArrayList<String> instruction) {
 		listInstructions.put(nb_instructions, instruction);
 		nb_instructions = nb_instructions + 1;
+	}
+	
+	public void ajouterInstructionDebut(ArrayList<String> instruction) {
+		listInstructions.put(0, instruction);
 	}
 	
 	public void ajouterInstructionAvant(ArrayList<String> instruction, int nombre) {
