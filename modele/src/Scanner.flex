@@ -39,40 +39,40 @@ IDF		=	[a-z]+[0-9]*
 
 /* regles */
 
-"("         { return new Symbol(sym.PG);}
-")"         { return new Symbol(sym.PD);}
-"<-"		{ return new Symbol(sym.AFFECTE);}
-"afficher"	{ return new Symbol(sym.AFFICH);}
-"+"         { return new Symbol(sym.PLUS);}
+"("         { return new Symbol(sym.PG, yytext());}
+")"         { return new Symbol(sym.PD, yytext());}
+"<-"		{ return new Symbol(sym.AFFECTE, yytext());}
+"afficher"	{ return new Symbol(sym.AFFICH, yytext());}
+"+"         { return new Symbol(sym.PLUS, yytext());}
 {COM}		{;}
 {DOC}		{;}
-{MAIN}		{ return new Symbol(sym.MAIN);}
-"/"			{ return new Symbol(sym.DIV);}
-"-"			{ return new Symbol(sym.MOINS);}
-"**"		{ return new Symbol(sym.FOIS);}
-"&"			{ return new Symbol(sym.ET);}
-"|"			{ return new Symbol(sym.OU);}
-">"			{ return new Symbol(sym.PLUSGRAND);}
-"<"         { return new Symbol(sym.PLUSPETIT);}
-"=="		{ return new Symbol(sym.EGALE);}
-"!="		{ return new Symbol(sym.DIFFERENT);}
-">="		{ return new Symbol(sym.PLUSGRANDEGALE);}
-"<="		{ return new Symbol(sym.PLUSPETITEGALE);}
-"{"			{ return new Symbol(sym.ACG);}
-"}"			{ return new Symbol(sym.ACD);}
-"::"		{ return new Symbol(sym.DP);}
-","			{ return new Symbol(sym.VIRGULE);}
+{MAIN}		{ return new Symbol(sym.MAIN, yytext());}
+"/"			{ return new Symbol(sym.DIV, yytext());}
+"-"			{ return new Symbol(sym.MOINS, yytext());}
+"**"		{ return new Symbol(sym.FOIS, yytext());}
+"&"			{ return new Symbol(sym.ET, yytext());}
+"|"			{ return new Symbol(sym.OU, yytext());}
+">"			{ return new Symbol(sym.PLUSGRAND, yytext());}
+"<"         { return new Symbol(sym.PLUSPETIT, yytext());}
+"=="		{ return new Symbol(sym.EGALE, yytext());}
+"!="		{ return new Symbol(sym.DIFFERENT, yytext());}
+">="		{ return new Symbol(sym.PLUSGRANDEGALE, yytext());}
+"<="		{ return new Symbol(sym.PLUSPETITEGALE, yytext());}
+"{"			{ return new Symbol(sym.ACG, yytext());}
+"}"			{ return new Symbol(sym.ACD, yytext());}
+"::"		{ return new Symbol(sym.DP, yytext());}
+","			{ return new Symbol(sym.VIRGULE, yytext());}
 ";"			{;}
-{SI} 		{ return new Symbol(sym.SI);}
-{SINON}		{ return new Symbol(sym.SINON);}
-{TYPE}		{ return new Symbol(sym.TYPE);}
-{RT}		{ return new Symbol(sym.RT);}
-{LIR}		{ return new Symbol(sym.LIR);}
-{FONCTION}	{ return new Symbol(sym.FONCTION);}
-{TQ}		{ return new Symbol(sym.TQ);}
-{PR}		{ return new Symbol(sym.PR);}
-{CONSTANTE} { return new Symbol(sym.CONSTANTE);}
+{SI} 		{ return new Symbol(sym.SI, yytext());}
+{SINON}		{ return new Symbol(sym.SINON, yytext());}
+{TYPE}		{ return new Symbol(sym.TYPE, yytext());}
+{RT}		{ return new Symbol(sym.RT, yytext());}
+{LIR}		{ return new Symbol(sym.LIR, yytext());}
+{FONCTION}	{ return new Symbol(sym.FONCTION, yytext());}
+{TQ}		{ return new Symbol(sym.TQ, yytext());}
+{PR}		{ return new Symbol(sym.PR, yytext());}
+{CONSTANTE} { return new Symbol(sym.CONSTANTE, yytext());}
 {SEP}		{;}
 {FIN}		{;}
-{IDF}		{ return new Symbol(sym.IDF);}
-{NOM}		{ return new Symbol(sym.NOM);}
+{IDF}		{ return new Symbol(sym.IDF, yytext());}
+{NOM}		{ return new Symbol(sym.NOM, yytext());}
