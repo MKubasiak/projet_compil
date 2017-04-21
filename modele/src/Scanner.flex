@@ -20,6 +20,7 @@ import java_cup.runtime.Symbol;
 /* macros */
 CONSTANTE =   [0-9]+
 FIN     =   \r|\n|\r\n\
+MAIN 	= 	"main"
 TQ 		=   "tantque"
 PR		=	"pour"
 RT		=	"retourne"
@@ -45,6 +46,7 @@ IDF		=	[a-z]+[0-9]*
 "+"         { return new Symbol(sym.PLUS);}
 {COM}		{;}
 {DOC}		{;}
+{MAIN}		{ return new Symbol(sym.MAIN);}
 "/"			{ return new Symbol(sym.DIV);}
 "-"			{ return new Symbol(sym.MOINS);}
 "**"		{ return new Symbol(sym.FOIS);}

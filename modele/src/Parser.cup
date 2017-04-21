@@ -10,9 +10,9 @@ package fr.ul.miage.exemple.generated;
 
 
 
-non terminal programme,function,param, bloc,instruction, declaration, affectation, expression, facteur, atome, lire, retourne, afficher, paramAppel, methodeAppel, if, else, condition, operation, while;
+non terminal programme,function,param, bloc,instruction, declaration, affectation, expression, facteur, atome, lire, retourne, afficher, paramAppel, methodeAppel, if, else, condition, operation, while, main;
 terminal PD, PG, ACD, ACG, TYPE, FONCTION, FIN, VIRGULE, IDF, CONSTANTE, DIV, MOINS, PLUS, ET, OU, SI, FOIS, AFFECTE, DP, PR, SINON,
-TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPETITEGALE;
+TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPETITEGALE, MAIN;
 /* 	TQ : Tant que ; 
 	PR : Pour ; 
 	PD : Parenth�se droite ; 
@@ -25,8 +25,9 @@ TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPE
 
 
 start with programme;
-programme ::= function programme|
-			;
+programme ::= main;
+			
+main ::= FONCTION TYPE MAIN PG PD ACG bloc ACD;			
 
 function ::= FONCTION TYPE IDF PG param PD ACG bloc ACD;
 
