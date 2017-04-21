@@ -11,14 +11,20 @@ import java.util.LinkedList;
 
 action code{:
 
-	LinkedList<String> prog = new LinkedList<String>();
+	LinkedList<Object> prog = new LinkedList<>();
 
 
 	public void ajouterALaListe(String[] tab){
 		for(String elem : tab){
 			prog.add(elem);
 		}
+	}
+
 	
+	public void showList(){
+		for(Object elem : prog){
+			System.out.println(elem);
+		}
 	}
 
 :}
@@ -42,7 +48,7 @@ TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPE
 
 
 start with programme;
-programme ::= main;
+programme ::= main {: showList(); :};
 			
 main ::= FONCTION:f TYPE MAIN:main PG PD ACG bloc ACD {: ajouterALaListe(new String[]{(String)f,(String)main}); :};			
 
@@ -112,7 +118,7 @@ facteur ::= facteur DIV:div atome {: ajouterALaListe(new String[]{(String)div});
 			
 atome ::= methodeAppel 
 		| IDF:id 		{: ajouterALaListe(new String[]{(String)id}); :} 
-		| CONSTANTE:a 	{: ajouterALaListe(new String[]{(String)a}); :}
+		| CONSTANTE:a 	{: prog.add(a); :}
 		| lire | PG expression PD ;		   		
 
 lire ::= LIR:lir PG PD {: ajouterALaListe(new String[]{(String)lir}); :};
