@@ -5,12 +5,13 @@
  *
  */ 
 package fr.ul.miage.exemple.generated;
-
+import java.util.ArrayList;
 import fr.ul.miage.exemple.Arbre_abstrait;
 
 action code{:
 
-	Arbre_abstrait arbre = new Arbre_abstrait();	
+	Arbre_abstrait arbre = new Arbre_abstrait();
+	ArrayList<String> tab = new ArrayList<String>();
 
 :}
 
@@ -35,11 +36,11 @@ TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPE
 start with programme;
 programme ::= main {: arbre.afficherListe(); :};
 			
-main ::= FONCTION:f TYPE MAIN:main PG PD ACG bloc ACD {: arbre.ajouterInstruction(new String[]{f.toString(),main.toString()}); :};			
+main ::= FONCTION:f TYPE:t MAIN:main PG PD ACG bloc ACD {: tab.add(f.toString()); tab.add(t.toString()); tab.add(main.toString()); tab.add("fonction main"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};			
 
-function ::= FONCTION:f TYPE:t IDF PG param PD ACG bloc ACD {: arbre.ajouterInstruction(new String[]{f.toString(), t.toString()});:};
+function ::= FONCTION:f TYPE:t IDF:i PG param PD ACG bloc ACD {: tab.add(f.toString()); tab.add(t.toString()); tab.add(i.toString()); tab.add("fonction"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};
 
-param ::= 	TYPE:t IDF:id {: arbre.ajouterInstruction(new String[]{t.toString(), id.toString()}); :} | 
+param ::= 	TYPE:t IDF:id {: tab.add(t.toString()); tab.add(id.toString()); :} | 
 			TYPE IDF VIRGULE param |
 			;
 
@@ -56,57 +57,57 @@ instruction ::= declaration |
 				methodeAppel |
 				FIN;
 			
-while ::= TQ:tq PG condition PD ACG bloc ACD {: arbre.ajouterInstruction(new String[]{tq.toString()}); :} ;			
+while ::= TQ:tq PG condition PD ACG bloc ACD {: tab.add(tq.toString()); tab.add("while"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};			
 				
-if ::= SI:si PG condition PD ACG bloc ACD else {: arbre.ajouterInstruction(new String[]{si.toString()}); :} ;
+if ::= SI:si PG condition PD ACG bloc ACD else {: tab.add(si.toString()); tab.add("if"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:} ;
 
-else ::= SINON:sinon ACG bloc ACD {: arbre.ajouterInstruction(new String[]{sinon.toString()}); :}|
+else ::= SINON:sinon ACG bloc ACD {: tab.add(sinon.toString()); tab.add("else"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:}|
 			;
 
 condition ::= expression operation expression |
 			  expression operation expression ET condition |
 			  expression operation expression OU condition;
 			  
-operation ::= PLUSGRAND:pg 		{: arbre.ajouterInstruction(new String[]{pg.toString()}); :}|
-			  EGALE:eg 			{: arbre.ajouterInstruction(new String[]{eg.toString()}); :}|
-			  PLUSPETIT:pp 		{: arbre.ajouterInstruction(new String[]{pp.toString()}); :}|
-			  DIFFERENT:dif 		{: arbre.ajouterInstruction(new String[]{dif.toString()}); :}|
-			  PLUSGRANDEGALE:pge	{: arbre.ajouterInstruction(new String[]{pge.toString()}); :}|
-			  PLUSPETITEGALE:ppe	{: arbre.ajouterInstruction(new String[]{ppe.toString()}); :};
+operation ::= PLUSGRAND:pg 		{: tab.add(pg.toString()); :}|
+			  EGALE:eg 			{: tab.add(eg.toString()); :}|
+			  PLUSPETIT:pp 		{: tab.add(pp.toString()); :}|
+			  DIFFERENT:dif 		{: tab.add(dif.toString()); :}|
+			  PLUSGRANDEGALE:pge	{: tab.add(pge.toString()); :}|
+			  PLUSPETITEGALE:ppe	{: tab.add(ppe.toString()); :};
 				
-retourne ::= RT:rt expression {: arbre.ajouterInstruction(new String[]{rt.toString()}); :};
+retourne ::= RT:rt expression {: tab.add(rt.toString()); tab.add("return"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};
 
-afficher ::= AFFICH:aff PG expression PD {: arbre.ajouterInstruction(new String[]{aff.toString()}); :};
+afficher ::= AFFICH:aff PG expression PD {: tab.add(aff.toString()); tab.add("afficher"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};
 			 
 			 
-methodeAppel ::= IDF:id PG paramAppel PD {: arbre.ajouterInstruction(new String[]{"methode", id.toString()}); :};
+methodeAppel ::= IDF:id PG paramAppel PD {: tab.add(id.toString()); tab.add("appelMethode"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};
 			 
 paramAppel ::=  expression |
-				expression VIRGULE:virg paramAppel {: arbre.ajouterInstruction(new String[]{virg.toString()}); :}|
+				expression VIRGULE:virg paramAppel {: tab.add(virg.toString()); :}|
 				;			 
 												
-declaration ::= TYPE:ty IDF:id {: arbre.ajouterInstruction(new String[]{"declaration", ty.toString(), id.toString()}); :}|
-				TYPE:ty IDF:id VIRGULE:virg declaration {: arbre.ajouterInstruction(new String[]{"declaration", ty.toString(), id.toString(), virg.toString()}); :}|
-				IDF:id VIRGULE:virg declaration {: arbre.ajouterInstruction(new String[]{"declaration", id.toString(), virg.toString() }); :}|
-				TYPE:ty affectation {: arbre.ajouterInstruction(new String[]{"declaration", ty.toString()}); :}|
-				IDF:id {: arbre.ajouterInstruction(new String[]{"declaration", id.toString()}); :};				
+declaration ::= TYPE:ty IDF:id {: tab.add(ty.toString()); tab.add(id.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
+				TYPE:ty IDF:id VIRGULE:virg declaration {: tab.add(ty.toString()); tab.add(id.toString()); tab.add(virg.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
+				IDF:id VIRGULE:virg declaration {: tab.add(id.toString()); tab.add(virg.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
+				TYPE:ty affectation {: tab.add(ty.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
+				IDF:id {: tab.add(id.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};				
 
-affectation ::= IDF:id AFFECTE:aff expression  {: arbre.ajouterInstruction(new String[]{id.toString(), aff.toString()}); :};
+affectation ::= IDF:id AFFECTE:aff expression {: tab.add(aff.toString()); tab.add(id.toString()); tab.add("Affectation"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:};
 		   		
-expression ::= expression PLUS:pl facteur {: arbre.ajouterInstruction(new String[]{pl.toString()}); :}|
-			   expression MOINS:min facteur {: arbre.ajouterInstruction(new String[]{min.toString()}); :}|
+expression ::= expression PLUS:pl facteur {: tab.add(pl.toString()); :}|
+			   expression MOINS:min facteur {: tab.add(min.toString()); :}|
 			   facteur;
 
-facteur ::= facteur DIV:div atome {: arbre.ajouterInstruction(new String[]{div.toString()}); :}|
-			facteur FOIS:mult atome {: arbre.ajouterInstruction(new String[]{mult.toString()}); :}|
+facteur ::= facteur DIV:div atome {: tab.add(div.toString()); :}|
+			facteur FOIS:mult atome {: tab.add(mult.toString()); :}|
 			atome;
 			
 atome ::= methodeAppel 
-		| IDF:id 		{: arbre.ajouterInstruction(new String[]{id.toString()}); :} 
-		| CONSTANTE:a 	{: arbre.ajouterInstruction(new String[]{a.toString()}); :}
+		| IDF:id 		{: tab.add(id.toString()); :} 
+		| CONSTANTE:a 	{: tab.add(a.toString()); :}
 		| lire | PG expression PD ;		   		
 
-lire ::= LIR:lir PG PD {: arbre.ajouterInstruction(new String[]{lir.toString()}); :};
+lire ::= LIR:lir PG PD {: tab.add(lir.toString()); tab.add("lire"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:};
 
 
 
