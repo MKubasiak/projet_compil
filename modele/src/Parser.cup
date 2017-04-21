@@ -34,7 +34,7 @@ TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPE
 
 
 start with programme;
-programme ::= main {: arbre.afficherListe(); :};
+programme ::= main {: arbre.afficherListe(); arbre.construireArbre(); :};
 			
 main ::= FONCTION:f TYPE:t MAIN:main PG PD ACG bloc ACD {: tab.add(f.toString()); tab.add(t.toString()); tab.add(main.toString()); tab.add("fonction main"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};			
 
@@ -64,9 +64,9 @@ if ::= SI:si PG condition PD ACG bloc ACD else {: tab.add(si.toString()); tab.ad
 else ::= SINON:sinon ACG bloc ACD {: tab.add(sinon.toString()); tab.add("else"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:}|
 			;
 
-condition ::= expression operation expression |
-			  expression operation expression ET condition |
-			  expression operation expression OU condition;
+condition ::= expression operation expression {: tab.add("Condition"); :} |
+			  expression operation expression ET condition {: tab.add("Condition"); :} |
+			  expression operation expression OU condition {: tab.add("Condition"); :};
 			  
 operation ::= PLUSGRAND:pg 		{: tab.add(pg.toString()); :}|
 			  EGALE:eg 			{: tab.add(eg.toString()); :}|
