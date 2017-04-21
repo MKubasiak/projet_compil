@@ -6,6 +6,23 @@
  */ 
 package fr.ul.miage.exemple.generated;
 
+
+import java.util.ArrayList;
+
+action code{:
+
+	ArrayList<String> prog = new ArrayList<String>();
+
+
+	public void ajouterALaListe(String[] tab){
+		for(String elem : tab){
+			prog.add(elem);
+		}
+	
+	}
+
+:}
+
 /* la grammaire */
 
 
@@ -27,11 +44,11 @@ TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPE
 start with programme;
 programme ::= main;
 			
-main ::= FONCTION TYPE MAIN PG PD ACG bloc ACD;			
+main ::= FONCTION:f TYPE MAIN:main PG PD ACG bloc ACD {: ajouterALaListe(new String[]{f.toString(),main.toString()}); :};			
 
-function ::= FONCTION TYPE IDF PG param PD ACG bloc ACD;
+function ::= FONCTION:f TYPE:t IDF PG param PD ACG bloc ACD {: ajouterALaListe(new String[]{f.toString(), t.toString()});:};
 
-param ::= 	TYPE IDF |
+param ::= 	TYPE:t IDF:id {: ajouterALaListe(new String[]{t.toString(), id.toString()}); :} | 
 			TYPE IDF VIRGULE param |
 			;
 
@@ -48,54 +65,58 @@ instruction ::= declaration |
 				methodeAppel |
 				FIN;
 			
-while ::= TQ PG condition PD ACG bloc ACD;			
+while ::= TQ:tq PG condition PD ACG bloc ACD {: ajouterALaListe(new String[]{tq.toString()}); :} ;			
 				
-if ::= SI PG condition PD ACG bloc ACD else;
+if ::= SI:si PG condition PD ACG bloc ACD else {: ajouterALaListe(new String[]{si.toString()}); :} ;
 
-else ::= SINON ACG bloc ACD|
+else ::= SINON:sinon ACG bloc ACD {: ajouterALaListe(new String[]{sinon.toString()}); :}|
 			;
 
 condition ::= expression operation expression |
 			  expression operation expression ET condition |
 			  expression operation expression OU condition;
 			  
-operation ::= PLUSGRAND |
-			  EGALE |
-			  PLUSPETIT |
-			  DIFFERENT |
-			  PLUSGRANDEGALE |
-			  PLUSPETITEGALE;
+operation ::= PLUSGRAND:pg 		{: ajouterALaListe(new String[]{pg.toString()}); :}|
+			  EGALE:eg 			{: ajouterALaListe(new String[]{eg.toString()}); :}|
+			  PLUSPETIT:pp 		{: ajouterALaListe(new String[]{pp.toString()}); :}|
+			  DIFFERENT:dif 		{: ajouterALaListe(new String[]{dif.toString()}); :}|
+			  PLUSGRANDEGALE:pge	{: ajouterALaListe(new String[]{pge.toString()}); :}|
+			  PLUSPETITEGALE:ppe	{: ajouterALaListe(new String[]{ppe.toString()}); :};
 				
-retourne ::= RT expression ;
+retourne ::= RT:rt expression {: ajouterALaListe(new String[]{rt.toString()}); :};
 
-afficher ::= AFFICH PG expression PD;
+afficher ::= AFFICH:aff PG expression PD {: ajouterALaListe(new String[]{aff.toString()}); :};
 			 
 			 
-methodeAppel ::= IDF PG paramAppel PD;
+methodeAppel ::= IDF:id PG paramAppel PD {: ajouterALaListe(new String[]{"methode", id.toString()}); :};
 			 
 paramAppel ::=  expression |
-				expression VIRGULE paramAppel |
+				expression VIRGULE:virg paramAppel {: ajouterALaListe(new String[]{virg.toString()}); :}|
 				;			 
 												
-declaration ::= TYPE IDF |
-				TYPE IDF VIRGULE declaration |
-				IDF VIRGULE declaration |
-				TYPE affectation |
-				IDF;				
+declaration ::= TYPE:ty IDF:id {: ajouterALaListe(new String[]{"declaration", ty.toString(), id.toString()}); :}|
+				TYPE:ty IDF:id VIRGULE:virg declaration {: ajouterALaListe(new String[]{"declaration", ty.toString(), id.toString(), virg.toString()}); :}|
+				IDF:id VIRGULE:virg declaration {: ajouterALaListe(new String[]{"declaration", id.toString(), virg.toString() }); :}|
+				TYPE:ty affectation {: ajouterALaListe(new String[]{"declaration", ty.toString() }); :}|
+				IDF:id {: ajouterALaListe(new String[]{"declaration", id.toString()}); :};				
 
-affectation ::= IDF AFFECTE expression;
+affectation ::= IDF:id AFFECTE:aff expression  {: ajouterALaListe(new String[]{id.toString(), aff.toString()}); :};
 		   		
-expression ::= expression PLUS facteur |
-			   expression MOINS facteur |
+expression ::= expression PLUS:pl facteur {: ajouterALaListe(new String[]{pl.toString()}); :}|
+			   expression MOINS:min facteur {: ajouterALaListe(new String[]{min.toString()}); :}|
 			   facteur;
 
-facteur ::= facteur DIV atome |
-			facteur FOIS atome |
+facteur ::= facteur DIV:div atome {: ajouterALaListe(new String[]{div.toString()}); :}|
+			facteur FOIS:mult atome {: ajouterALaListe(new String[]{mult.toString()}); :}|
 			atome;
 			
-atome ::= methodeAppel | IDF | CONSTANTE | lire | PG expression PD ;		   		
+atome ::= methodeAppel | 
+			IDF:id {: ajouterALaListe(new String[]{id.toString()}); :} 
+		|
+		 CONSTANTE:ct {: ajouterALaListe(new String[]{ct.toString()}); :}
+		| lire | PG expression PD ;		   		
 
-lire ::= LIR PG PD;
+lire ::= LIR:lir PG PD {: ajouterALaListe(new String[]{lir.toString()}); :};
 
 
 
