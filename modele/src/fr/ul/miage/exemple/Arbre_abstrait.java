@@ -1,5 +1,6 @@
 package fr.ul.miage.exemple;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Arbre_abstrait {
@@ -13,7 +14,6 @@ public class Arbre_abstrait {
 	}
 	
 	public void construireArbre() {
-		
 	}
 	
 	public void ajouterInstruction(String instruction) {
