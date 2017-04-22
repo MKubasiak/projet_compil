@@ -41,7 +41,7 @@ programme ::= main {: arbre.afficherListe(); arbre.construireArbre(); :};
 			
 main ::= FONCTION:f TYPE:t MAIN:main PG PD ACG bloc ACD {: tab.add(f.toString()); tab.add(t.toString()); tab.add(main.toString()); arbre.ajouterInstructionDebut(tab); tab = new ArrayList<String>(); :};			
 
-function ::= FONCTION:f TYPE:t IDF:i PG param PD ACG blocfonction ACD {: tab.add(f.toString()); tab.add(t.toString()); tab.add(i.toString()); arbre.ajouterInstructionAvant(tab,nombreInstructionsFonction); tab = new ArrayList<String>(); :};
+function ::= FONCTION:f TYPE:t IDF:i PG param PD ACG blocfonction ACD {: tab.add(f.toString()); tab.add(t.toString()); tab.add(i.toString()); arbre.ajouterInstructionAvant(tab,nombreInstructionsFonction); nombreInstructionsFonction=0; nombreInstructions=0; tab = new ArrayList<String>(); :};
 
 param ::= 	TYPE:t IDF:id param {: tab.add(t.toString()); tab.add(id.toString()); tab.add("Parametre"); :} | 
 			TYPE:t IDF:id VIRGULE param {: tab.add(t.toString()); tab.add(id.toString()); tab.add("Parametre"); :} 
@@ -54,7 +54,7 @@ blocif ::= instruction blocif {: nombreInstructionsIf = nombreInstructionsIf + 1
 			;
 			
 blocfonction ::= instruction blocfonction {: nombreInstructionsFonction = nombreInstructionsFonction + 1; nombreInstructions = nombreInstructions + 1; :} |
-			;						
+			{: tab.add("finfonction"); arbre.ajouterInstruction(tab); nombreInstructionsFonction = nombreInstructionsFonction + 1; tab = new ArrayList<String>(); :} ;						
 
 instruction ::= declaration |
 				function |
@@ -70,8 +70,8 @@ while ::= TQ:tq PG condition PD ACG bloc ACD {: tab.add(tq.toString()); arbre.aj
 				
 if ::= SI:si PG condition PD ACG blocif ACD else {: tab.add(si.toString()); arbre.ajouterInstructionAvant(tab,nombreInstructions); nombreInstructions = 0; nombreInstructionsIf = 0; tab = new ArrayList<String>();:} ;
 
-else ::= SINON:sinon ACG bloc ACD {: tab.add(sinon.toString()); arbre.ajouterInstructionAvant(tab,nombreInstructions-nombreInstructionsIf); tab = new ArrayList<String>();:}|
-			;
+else ::= SINON:sinon ACG bloc ACD {: tab.add("finsi"); tab.add(sinon.toString()); arbre.ajouterInstructionAvant(tab,nombreInstructions-nombreInstructionsIf); tab = new ArrayList<String>(); tab.add("finsinon"); arbre.ajouterInstruction(tab); nombreInstructions = nombreInstructions + 1; tab = new ArrayList<String>();:}|
+			{: tab.add("finsi"); arbre.ajouterInstruction(tab); nombreInstructions = nombreInstructions + 1; tab = new ArrayList<String>();:};
 
 condition ::= expression operation expression {: tab.add("Condition"); :} |
 			  expression operation expression ET condition {: tab.add("Condition"); :} |
@@ -103,12 +103,12 @@ declaration ::= TYPE:ty IDF:id {: tab.add(ty.toString()); tab.add(id.toString())
 
 affectation ::= IDF:id AFFECTE:aff expression {: tab.add(aff.toString()); tab.add(id.toString()); tab.add("Affectation"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:};
 		   		
-expression ::= expression PLUS:pl facteur {: tab.add(pl.toString()); :}|
-			   expression MOINS:min facteur {: tab.add(min.toString()); :}|
+expression ::= expression:expr PLUS:pl facteur:fact {: tab.add(pl.toString()); tab.add("------ operation"); :}|
+			   expression MOINS:min facteur {: tab.add(min.toString()); tab.add("------ operation"); :}|
 			   facteur;
 
-facteur ::= facteur DIV:div atome {: tab.add(div.toString()); :}|
-			facteur FOIS:mult atome {: tab.add(mult.toString()); :}|
+facteur ::= facteur DIV:div atome {: tab.add(div.toString()); tab.add("------ operation"); :}|
+			facteur FOIS:mult atome {: tab.add(mult.toString()); tab.add("------ operation"); :}|
 			atome;
 			
 atome ::= methodeAppel 
