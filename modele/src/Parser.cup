@@ -103,12 +103,12 @@ declaration ::= TYPE:ty IDF:id {: tab.add(ty.toString()); tab.add(id.toString())
 
 affectation ::= IDF:id AFFECTE:aff expression {: tab.add(aff.toString()); tab.add(id.toString()); tab.add("Affectation"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:};
 		   		
-expression ::= expression:expr PLUS:pl facteur:fact {: tab.add(pl.toString()); tab.add("------ operation"); :}|
-			   expression MOINS:min facteur {: tab.add(min.toString()); tab.add("------ operation"); :}|
+expression ::= expression:expr PLUS:pl facteur:fact {: tab.add(pl.toString()); tab.add("operation"); :}|
+			   expression MOINS:min facteur {: tab.add(min.toString()); tab.add("operation"); :}|
 			   facteur;
 
-facteur ::= facteur DIV:div atome {: tab.add(div.toString()); tab.add("------ operation"); :}|
-			facteur FOIS:mult atome {: tab.add(mult.toString()); tab.add("------ operation"); :}|
+facteur ::= facteur DIV:div atome {: tab.add(div.toString()); tab.add("operation"); :}|
+			facteur FOIS:mult atome {: tab.add(mult.toString()); tab.add("operation"); :}|
 			atome;
 			
 atome ::= methodeAppel 
