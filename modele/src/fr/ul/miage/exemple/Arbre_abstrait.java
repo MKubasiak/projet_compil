@@ -31,16 +31,19 @@ public class Arbre_abstrait {
 			for(int j=instr.size()-1; j>=0; j--){
 				//Si c'est une affectation qu'il n'y a pas d'opération qui suit
 				if(instr.get(j)=="Affectation"){
-					if(instr.get(j-3) != "operation"){
+					if(instr.get(j-4) == "Condition"){
+						Noeud gauche = ajouterCondition(instr);
+						this.dernier.getFils().add(gauche);
+						ajouterAffectation(instr.get(j-1), instr.get(j-3),this.dernier);
+					}else if(instr.get(j-3) != "operation"){
 						//On ajoute l'affectation a l'arbre
-						ajouterAffectation(instr.get(j-1), instr.get(j-3));
+						ajouterAffectation(instr.get(j-1), instr.get(j-3),this.dernier);
 						//on remove de la liste d'instruction du niveau les elements traités
 						instr.remove(j);
 						instr.remove(j-1);
 						instr.remove(j-2);
 						instr.remove(j-3);
 						j-=3;
-						
 					}else{
 						//si une operation suis l'instruction
 						ajouterOperation(instr, this.dernier);
@@ -66,12 +69,24 @@ public class Arbre_abstrait {
 		}
 	}
 	
-	private void ajouterAffectation(String var, String val){
+	private void ajouterAffectation(String var, String val, Noeud racine_aff){
 		LinkedList<Noeud> fils = new LinkedList<Noeud>();
 		fils.add(new Noeud(var));
 		fils.add(new Noeud(val));
 		Noeud ope = new Noeud(fils, "=");
-		this.dernier.getFils().add(ope);
+		racine_aff.getFils().add(ope);
+	}
+	
+	public Noeud ajouterCondition(ArrayList<String> instructions){
+		LinkedList<Noeud> fils = new LinkedList<Noeud>();
+		fils.add(new Noeud(instructions.get(1)));
+		fils.add(new Noeud(instructions.get(3)));
+		Noeud gauche = new Noeud(fils, instructions.get(2));
+		return gauche;
+	}
+	
+	public void ajouterBloc(ArrayList<String> instructions){
+		
 	}
 	
 	private Noeud ajouterOperation(ArrayList<String> instructions, Noeud racine_ope){
