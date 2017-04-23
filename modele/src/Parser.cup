@@ -7,14 +7,20 @@
 package fr.ul.miage.exemple.generated;
 import java.util.ArrayList;
 import fr.ul.miage.exemple.Arbre_abstrait;
+import fr.ul.miage.exemple.Table_symboles;
 
 action code{:
-
+	
+	Table_symboles table_s = new Table_symboles();
 	Arbre_abstrait arbre = new Arbre_abstrait();
 	ArrayList<String> tab = new ArrayList<String>();
 	int nombreInstructions = 0;
 	int nombreInstructionsIf = 0;
 	int nombreInstructionsFonction = 0;
+	String infoNomVariable = "test";
+	String infoTDS = "test";
+	ArrayList<String> valeur = new ArrayList<String>();
+	int nbparam = 0;
 
 :}
 
@@ -22,7 +28,7 @@ action code{:
 
 
 
-non terminal programme,function,param, bloc,instruction, declaration, affectation, expression, facteur, atome, lire, retourne, afficher, paramAppel, methodeAppel, if, else, condition, operation, while, main, blocif, blocfonction;
+non terminal programme,function,param, bloc,instruction, declaration, affectation, expression, facteur, atome, lire, retourne, afficher, paramAppel, methodeAppel, if, else, condition, operation, while, main, blocif, blocfonction, affectationDecl;
 terminal PD, PG, ACD, ACG, TYPE, FONCTION, FIN, VIRGULE, IDF, CONSTANTE, DIV, MOINS, PLUS, ET, OU, SI, FOIS, AFFECTE, DP, PR, SINON,
 TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPETITEGALE, MAIN;
 /* 	TQ : Tant que ; 
@@ -37,14 +43,14 @@ TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPE
 
 
 start with programme;
-programme ::= main {: arbre.afficherListe(); arbre.construireArbre(); arbre.afficherArbre(); :};
+programme ::= main {: arbre.afficherListe(); arbre.construireArbre(); arbre.afficherArbre();  table_s.afficherTDS();  :};
 			
-main ::= FONCTION:f TYPE:t MAIN:main PG PD ACG bloc ACD {: tab.add(f.toString()); tab.add(t.toString()); tab.add(main.toString()); arbre.ajouterInstructionDebut(tab); tab = new ArrayList<String>(); :};			
+main ::= FONCTION:f TYPE:t MAIN:main PG PD ACG bloc ACD {: table_s.setContexte(main.toString(),f.toString(),t.toString(),nombreInstructions,0); tab.add(f.toString()); tab.add(t.toString()); tab.add(main.toString()); arbre.ajouterInstructionDebut(tab); tab = new ArrayList<String>(); :};			
 
-function ::= FONCTION:f TYPE:t IDF:i PG param PD ACG blocfonction ACD {: tab.add(f.toString()); tab.add(t.toString()); tab.add(i.toString()); arbre.ajouterInstructionAvant(tab,nombreInstructionsFonction); nombreInstructionsFonction=0; nombreInstructions=0; tab = new ArrayList<String>(); :};
+function ::= FONCTION:f TYPE:t IDF:i PG param PD ACG blocfonction ACD {: table_s.setContexte(i.toString(),f.toString(),t.toString(),nombreInstructionsFonction, nbparam); tab.add(f.toString()); tab.add(t.toString()); tab.add(i.toString()); arbre.ajouterInstructionAvant(tab,nombreInstructionsFonction); nombreInstructionsFonction=0; nombreInstructions=0; tab = new ArrayList<String>(); :};
 
-param ::= 	TYPE:t IDF:id param {: tab.add(t.toString()); tab.add(id.toString()); tab.add("Parametre"); :} | 
-			TYPE:t IDF:id VIRGULE param {: tab.add(t.toString()); tab.add(id.toString()); tab.add("Parametre"); :} 
+param ::= 	TYPE:t IDF:id param {: nbparam = nbparam + 1; tab.add(t.toString()); tab.add(id.toString()); tab.add("Parametre"); :} | 
+			TYPE:t IDF:id VIRGULE param {: nbparam = nbparam + 1; tab.add(t.toString()); tab.add(id.toString()); tab.add("Parametre"); :} 
 			| {: arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :} ;
 
 bloc ::= instruction bloc {: nombreInstructions = nombreInstructions + 1; :}   |
@@ -95,25 +101,26 @@ paramAppel ::=  expression  |
 				expression VIRGULE:virg paramAppel {: tab.add(virg.toString()); :}|
 				;			 
 												
-declaration ::= TYPE:ty IDF:id {: tab.add(ty.toString()); tab.add(id.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
-				TYPE:ty IDF:id VIRGULE:virg declaration {: tab.add(ty.toString()); tab.add(id.toString()); tab.add(virg.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
-				IDF:id VIRGULE:virg declaration {: tab.add(id.toString()); tab.add(virg.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
-				TYPE:ty affectation {: tab.add(ty.toString()); tab.add("declaration"); arbre.ajouterInstructionAvant(tab,1); tab = new ArrayList<String>(); :}|
-				IDF:id {: tab.add(id.toString()); tab.add("declaration"); :};				
+declaration ::= TYPE:ty IDF:id {:  table_s.rangerTDS(ty.toString(),id.toString()); tab.add(ty.toString()); tab.add(id.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
+				TYPE:ty IDF:id VIRGULE:virg declaration {:  table_s.rangerTDS(ty.toString(),id.toString()); table_s.rangerTDS(ty.toString(),infoNomVariable); infoNomVariable = "vide"; tab.add(ty.toString()); tab.add(id.toString()); tab.add(virg.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
+				IDF:id VIRGULE:virg declaration {: table_s.rangerTDS(infoTDS,id.toString()); tab.add(id.toString()); tab.add(virg.toString()); tab.add("declaration"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :}|
+				TYPE:ty affectationDecl {: table_s.rangerTDS(ty.toString(), infoNomVariable); table_s.rechercherTDS(infoNomVariable,valeur); infoNomVariable = "vide"; tab.add(ty.toString()); tab.add("declaration"); arbre.ajouterInstructionAvant(tab,1); tab = new ArrayList<String>();  valeur = new ArrayList<String>(); :}|
+				IDF:id {: infoNomVariable = id.toString();  tab.add(id.toString()); tab.add("declaration"); :};				
 
-affectation ::= IDF:id AFFECTE:aff expression {: tab.add(aff.toString()); tab.add(id.toString()); tab.add("Affectation"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:};
+affectationDecl ::= IDF:id AFFECTE:aff expression {: infoNomVariable = id.toString(); tab.add(aff.toString()); tab.add(id.toString()); tab.add("Affectation"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); :};
+affectation ::= IDF:id AFFECTE:aff expression {: table_s.rechercherTDS(id.toString(),valeur); tab.add(aff.toString()); tab.add(id.toString()); tab.add("Affectation"); arbre.ajouterInstruction(tab); tab = new ArrayList<String>(); valeur = new ArrayList<String>(); :};
 		   		
-expression ::= expression:expr PLUS:pl facteur:fact {: tab.add(pl.toString()); tab.add("operation"); :}|
-			   expression MOINS:min facteur {: tab.add(min.toString()); tab.add("operation"); :}|
+expression ::= expression:expr PLUS:pl facteur:fact {: tab.add(pl.toString()); tab.add("operation"); valeur.add(pl.toString()); :}|
+			   expression MOINS:min facteur {: tab.add(min.toString()); tab.add("operation"); valeur.add(min.toString()); :}|
 			   facteur;
 
-facteur ::= facteur DIV:div atome {: tab.add(div.toString()); tab.add("operation"); :}|
-			facteur FOIS:mult atome {: tab.add(mult.toString()); tab.add("operation"); :}|
+facteur ::= facteur DIV:div atome {: tab.add(div.toString()); tab.add("operation"); valeur.add(div.toString()); :}|
+			facteur FOIS:mult atome {: tab.add(mult.toString()); tab.add("operation"); valeur.add(mult.toString()); :}|
 			atome;
 			
 atome ::= methodeAppel 
-		| IDF:id 		{: tab.add(id.toString()); :} 
-		| CONSTANTE:a 	{: tab.add(a.toString()); :}
+		| IDF:id 		{: infoNomVariable = id.toString(); tab.add(id.toString()); valeur.add(id.toString());:} 
+		| CONSTANTE:a 	{: tab.add(a.toString()); valeur.add(a.toString()); :}
 		| lire | PG expression PD ;		   		
 
 lire ::= LIR:lir PG PD {: tab.add(lir.toString()); arbre.ajouterInstruction(tab); tab = new ArrayList<String>();:};
