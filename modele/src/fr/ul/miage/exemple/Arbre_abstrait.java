@@ -52,6 +52,18 @@ public class Arbre_abstrait {
 	}
 	
 	public void afficherArbre(){
+		System.out.println(this.racine.getValeur());
+		LinkedList<Noeud> fils = this.racine.getFils();
+		this.parcourirArbre(fils);
+	}
+	
+	public void parcourirArbre(LinkedList<Noeud> fils){
+		for(int i = 0; i<fils.size();i++) {
+			System.out.println(fils.get(i).getValeur());
+			if(!fils.get(i).getFils().isEmpty()) {
+				this.parcourirArbre(fils.get(i).getFils());
+			}
+		}
 	}
 	
 	private void ajouterAffectation(String var, String val){

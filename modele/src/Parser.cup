@@ -37,7 +37,7 @@ TQ,LIR,RT,AFFICH, PLUSGRAND, EGALE, PLUSPETIT, DIFFERENT, PLUSGRANDEGALE, PLUSPE
 
 
 start with programme;
-programme ::= main {: arbre.afficherListe(); arbre.construireArbre(); :};
+programme ::= main {: arbre.afficherListe(); arbre.construireArbre(); arbre.afficherArbre(); :};
 			
 main ::= FONCTION:f TYPE:t MAIN:main PG PD ACG bloc ACD {: tab.add(f.toString()); tab.add(t.toString()); tab.add(main.toString()); arbre.ajouterInstructionDebut(tab); tab = new ArrayList<String>(); :};			
 

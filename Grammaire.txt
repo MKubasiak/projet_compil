@@ -1,16 +1,9 @@
- * syntaxique fonctionne
- */
- 
- fonction void main(){
- int i <- 0 ;
- int j; 
- 
- 	fonction int f(int a, int b){
-		int x;
-		x <- (a**2)+b-5/3;
-		retourne x+2;
- 	}
- 
- int j <- lire();
- afficher(f(i+1,j));
+fonction void main() {
+
+int i <- 5; int j;
+		si(i<2) {
+			j <- 0;
+		} sinon {
+			j <- 1;
+		}
 }
