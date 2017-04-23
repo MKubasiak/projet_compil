@@ -28,18 +28,18 @@ public class Arbre_abstrait {
 			//On prend les instructions niveau par niveau
 			ArrayList<String> instr = this.listInstructions.get(i);
 			//On les parcours
-			for(int j=instr.size(); j>=0; j--){
+			for(int j=instr.size()-1; j>=0; j--){
 				//Si c'est une affectation qu'il n'y a pas d'opération qui suit
 				if(instr.get(j)=="Affectation"){
-					if(instr.get(j+3) != "operation"){
+					if(instr.get(j-3) != "operation"){
 						//On ajoute l'affectation a l'arbre
-						ajouterAffectation(instr.get(j+1), instr.get(j+3));
+						ajouterAffectation(instr.get(j-1), instr.get(j-3));
 						//on remove de la liste d'instruction du niveau les elements traités
 						instr.remove(j);
-						instr.remove(j+1);
-						instr.remove(j+2);
-						instr.remove(j+3);
-						j+=3;
+						instr.remove(j-1);
+						instr.remove(j-2);
+						instr.remove(j-3);
+						j-=3;
 						
 					}else{
 						//si une operation suis l'instruction

@@ -14,6 +14,7 @@ public class Noeud{
 	
 	public Noeud(String operation){
 		this.valeur = operation;
+		this.fils = new LinkedList<Noeud>();
 	}
 
 	public LinkedList<Noeud> getFils(){
