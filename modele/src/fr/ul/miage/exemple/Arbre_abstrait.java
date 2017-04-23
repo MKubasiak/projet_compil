@@ -44,6 +44,7 @@ public class Arbre_abstrait {
 					}else{
 						//si une operation suis l'instruction
 						ajouterOperation(instr, this.dernier);
+						j=0;
 					}
 				}
 			}
